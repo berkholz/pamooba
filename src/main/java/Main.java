@@ -16,7 +16,7 @@ import org.berkholz.pamoba.CmdLineOption;
  */
 public class Main {
 
-	// Logger for this class
+	// Logger for this class. See, https://logging.apache.org/log4j/2.x/
 	private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(Main.class.getName());
 	
 	public static void main(String[] args) {
