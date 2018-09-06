@@ -17,44 +17,67 @@ public class DatabaseConnectionConfiguration {
 	 * VARIABLES
 	 */
 	@XmlElement(name = "DatabaseName", required = true)
-	private final String databaseName;
+	private final String DATABASE_NAME;
 
 	@XmlElement(name = "DatabaseUsername", required = true)
-	private final String databaseUsername;
+	private final String DATABASE_USERNAME;
 
 	@XmlElement(name = "DatabasePassword", required = true)
-	private final String databasePassword;
+	private final String DATABASE_PASSWORD;
 
 	@XmlElement(name = "DatabasePort", required = false)
-	private final int databasePort;
+	private final int DATABASE_PORT;
+
+	// TODO: add description
+	@XmlElement(name = "DatabaseType", required = true)
+	private final String DATABASE_TYPE;
 
 	/**
 	 * CONSTRUCTORS
 	 */
+	// TODO: add javadoc
 	public DatabaseConnectionConfiguration() {
-		databaseName = "Mdl_course";
-		databasePassword = "moodle";
-		databaseUsername = "moodle";
-		databasePort = 5432;
+		DATABASE_NAME = "Mdl_course";
+		DATABASE_USERNAME = "moodle";
+		DATABASE_PASSWORD = "secret";
+		DATABASE_PORT = 5432;
+		DATABASE_TYPE = "postgres,mysql";
+	}
+
+	/**
+	 * METHODS
+	 */
+	// TODO: add javadoc
+	public String toString() {
+		return String.format(
+				"\n\t\tDATABASE_NAME:\t\t\t%s\n"
+				+ "\t\tDATABASE_USERNAME:\t\t%s\n"
+				+ "\t\tDATABASE_PASSWORD:\t\t***\n"
+				+ "\t\tDATABASE_PORT:\t\t\t%s\n"
+				+ "\t\tDATABASE_TYPE:\t\t\t%s", DATABASE_NAME, DATABASE_USERNAME, DATABASE_PORT, DATABASE_TYPE);
 	}
 
 	/**
 	 * GETTER AND SETTER
 	 */
-	public String getDatabaseName() {
-		return databaseName;
+	// TODO: add javadoc
+	public String getDATABASE_NAME() {
+		return DATABASE_NAME;
 	}
 
-	public String getDatabaseUsername() {
-		return databaseUsername;
+	// TODO: add javadoc
+	public String getDATABASE_USERNAME() {
+		return DATABASE_USERNAME;
 	}
 
-	public String getDatabasePassword() {
-		return databasePassword;
+	// TODO: add javadoc
+	public String getDATABASE_PASSWORD() {
+		return DATABASE_PASSWORD;
 	}
 
-	public int getDatabasePort() {
-		return databasePort;
+	// TODO: add javadoc
+	public int getDATABASE_PORT() {
+		return DATABASE_PORT;
 	}
 
 }
