@@ -89,13 +89,20 @@ public class MainConfiguration {
 	 *
 	 * @return
 	 */
-	@Override
 	// TODO: add all variables to toString()
 	// TODO: add javadoc
-	public String toString() {
+	public String print() {
 		return String.format(
-				"BACKUP_DESTINATION_PATH: %s\n"
-				+ "BLACK_LIST_FILE: %s", this.BACKUP_DESTINATION_PATH, this.BLACK_LIST_FILE);
+				"\tBACKUP_DESTINATION_PATH:\t\t%s\n"
+				+ "\tFULL_BACKUP_MODE:\t\t\t%s\n"
+				+ "\tMAXIMUM_RUNNING_BACKUP_JOBS:\t\t%s\n"
+				+ "\tPHP_COMMAND:\t\t\t\t%s\n"
+				+ "\tMOODLE_BACKUP_CLI_COMMAND:\t\t%s\n"
+				+ "\tMOODLE_BACKUP_CLI_COMMAND_PARAMETERS:\t%s\n"
+				+ "\tBLACK_LIST_FILE:\t\t\t%s\n"
+				+ "\tWHITE_LIST_FILE:\t\t\t%s\n"
+				+ "\tDATABASE_CONNECTION_SETTINGS:\t%s\n"
+				+ "\tDATABASE_SELECT_SETTINGS:\t%s\n", BACKUP_DESTINATION_PATH, FULL_BACKUP_MODE, MAXIMUM_RUNNING_BACKUP_JOBS, PHP_COMMAND, MOODLE_BACKUP_CLI_COMMAND, MOODLE_BACKUP_CLI_COMMAND_PARAMETERS, BLACK_LIST_FILE, WHITE_LIST_FILE, DATABASE_CONNECTION_SETTINGS, DATABASE_SELECT_SETTINGS);
 	}
 
 	/**
