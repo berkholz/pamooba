@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.berkholz.pamoba.CmdLineOption;
 import org.berkholz.helperfunctions.HelperFunctions;
 import org.berkholz.configurationframework.Configuration;
+import org.berkholz.pamoba.config.MainConfiguration;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
