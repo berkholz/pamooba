@@ -5,18 +5,18 @@
  */
 package org.berkholz.pamoba.config;
 
+import java.io.File;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.berkholz.helperfunctions.HelperFunctions;
 
 /**
  *
  * @author Marcel Berkholz
  */
-@XmlRootElement(name = "PaMoBa-Configuration")
+@XmlRootElement(name = "PaMoBaConfiguration")
 public class MainConfiguration {
 
 	/**
@@ -49,6 +49,12 @@ public class MainConfiguration {
 	@XmlElement(name = "MoodleBackupCliCommandParameters")
 	private final ArrayList MOODLE_BACKUP_CLI_COMMAND_PARAMETERS;
 
+	@XmlElement(name = "BlackListFile")
+	private final String BLACK_LIST_FILE;
+
+	@XmlElement(name = "WhiteListFile")
+	private final String WHITE_LIST_FILE;
+
 	/**
 	 * CONSTRUCTOR
 	 */
@@ -61,48 +67,127 @@ public class MainConfiguration {
 		this.MAXIMUM_RUNNING_BACKUP_JOBS = 1;
 
 		// only full backups by default
-		this.FULL_BACKUP_MODE = new Boolean(true);
+		this.FULL_BACKUP_MODE = true;
 
 		// TODO: may be we search for the command on different systems
 		this.PHP_COMMAND = "/usr/bin/php";
 
+		this.DATABASE_CONNECTION_SETTINGS = new DatabaseConnectionConfiguration();
+		this.DATABASE_SELECT_SETTINGS = new DatabaseSelectConfiguration();
+
 		this.MOODLE_BACKUP_CLI_COMMAND = "/var/www/moodle/admin/cli/backup.php";
 		this.MOODLE_BACKUP_CLI_COMMAND_PARAMETERS = new ArrayList();
+
+		this.BLACK_LIST_FILE = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.blacklist";
+		this.WHITE_LIST_FILE = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.whitelist";
+	}
+
+	/**
+	 * METHODS
+	 */
+	/**
+	 *
+	 * @return
+	 */
+	@Override
+	// TODO: add all variables to toString()
+	// TODO: add javadoc
+	public String toString() {
+		return String.format(
+				"BACKUP_DESTINATION_PATH: %s\n"
+				+ "BLACK_LIST_FILE: %s", this.BACKUP_DESTINATION_PATH, this.BLACK_LIST_FILE);
 	}
 
 	/**
 	 * GETTER AND SETTER
 	 */
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public String getBACKUP_DESTINATION_PATH() {
 		return BACKUP_DESTINATION_PATH;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public String getPHP_COMMAND() {
 		return PHP_COMMAND;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public Boolean getFULL_BACKUP_MODE() {
 		return FULL_BACKUP_MODE;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public Integer getMAXIMUM_RUNNING_BACKUP_JOBS() {
 		return MAXIMUM_RUNNING_BACKUP_JOBS;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public DatabaseSelectConfiguration getDATABASE_SELECT_SETTINGS() {
 		return DATABASE_SELECT_SETTINGS;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public DatabaseConnectionConfiguration getDATABASE_CONNECTION_SETTINGS() {
 		return DATABASE_CONNECTION_SETTINGS;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public String getMOODLE_BACKUP_CLI_COMMAND() {
 		return MOODLE_BACKUP_CLI_COMMAND;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
 	public ArrayList getMOODLE_BACKUP_CLI_COMMAND_PARAMETERS() {
 		return MOODLE_BACKUP_CLI_COMMAND_PARAMETERS;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
+	public String getBLACK_LIST_FILE() {
+		return BLACK_LIST_FILE;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
+	public String getWHITE_LIST_FILE() {
+		return WHITE_LIST_FILE;
+	}
 }
