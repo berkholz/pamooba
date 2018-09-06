@@ -76,5 +76,14 @@ public class CmdLineOption {
 		LOG.trace("Parsing command line options.");
 		this.cmdLine = parser.parse(this.cmdOptions, this.args);
 	}
+	
+	public void validateCmdLineOptions() {
+		LOG.trace("Begin of validating command line options.");
+		
+		
+		
+		LOG.trace("End of validating command line options.");
+	}
+	
 
 }
