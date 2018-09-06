@@ -44,7 +44,7 @@ public class Main {
 		MainConfiguration mainConfig = (MainConfiguration) Configuration.load(MainConfiguration.class, new File(HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml"));
 
 		// PRINT CONFIG
-		System.out.println("Config: " + mainConfig.toString());
+		LOG.info("Using the following configuration settings:\n" + mainConfig.print());
 
 		// MEASURE END
 		long measureEndTime = System.currentTimeMillis();
