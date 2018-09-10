@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author Marcel Berkholz
  */
-class DatabaseSelectConfiguration {
+public class DatabaseSelectConfiguration {
 
 	/**
 	 * VARIABLES
