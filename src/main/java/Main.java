@@ -1,12 +1,17 @@
 
 import java.io.File;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
-import org.berkholz.pamoba.CmdLineOption;
-import org.berkholz.helperfunctions.HelperFunctions;
 import org.berkholz.configurationframework.Configuration;
+import org.berkholz.helperfunctions.HelperFunctions;
+import org.berkholz.pamoba.CmdLineOption;
 import org.berkholz.pamoba.config.MainConfiguration;
+import org.berkholz.pamoba.dbms.QueryDatabase;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,7 +27,7 @@ public class Main {
 	// Logger for this class. See, https://logging.apache.org/log4j/2.x/
 	private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(Main.class.getName());
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 
 		// MEASURE START
 		long measureStartTime = System.currentTimeMillis();
@@ -39,12 +44,18 @@ public class Main {
 
 		// CONFIG SAVE
 //		Configuration.save(new MainConfiguration(), new File(HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml"));
-
 		// CONFIG LOAD
 		MainConfiguration mainConfig = (MainConfiguration) Configuration.load(MainConfiguration.class, new File(HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml"));
 
 		// PRINT CONFIG
 		LOG.info("Using the following configuration settings:\n" + mainConfig.print());
+
+		// QUERY COURSE IDs
+		QueryDatabase qdb = new QueryDatabase(mainConfig);
+		qdb.initializeConnectionURL();
+
+		List courseIds = qdb.getCourseIds();
+		
 
 		// MEASURE END
 		long measureEndTime = System.currentTimeMillis();
