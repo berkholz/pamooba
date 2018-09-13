@@ -5,19 +5,19 @@
  */
 package org.berkholz.pamoba;
 
-import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 
 /**
  * Class for defining the command line options.
- * 
- * See, https://commons.apache.org/proper/commons-cli/
+ *
+ * See reference for apache common cli for more informations about command line
+ * parsing in java, https://commons.apache.org/proper/commons-cli/
+ *
  * @author Marcel Berkholz
  */
 public class CmdLineOption {
@@ -30,7 +30,7 @@ public class CmdLineOption {
 
 	// options object for command line options
 	private final Options cmdOptions;
-	
+
 	// parse the command line arguments
 	private final String[] args;
 	private CommandLine cmdLine;
@@ -40,7 +40,7 @@ public class CmdLineOption {
 	 */
 	
 	/**
-	 * 
+	 *
 	 * @param args
 	 */
 	public CmdLineOption(String args[]) {
@@ -54,7 +54,7 @@ public class CmdLineOption {
 	
 	/**
 	 * Method for setup all command line options.
-	 * 
+	 *
 	 * @throws org.apache.commons.cli.ParseException
 	 */
 	public void setCmdLineOptions() throws ParseException {
@@ -72,18 +72,18 @@ public class CmdLineOption {
 		// create a basic parser with above specified commandline options
 		LOG.trace("Creating new BasicParser with options.");
 		CommandLineParser parser = new GnuParser();
-		
+
 		LOG.trace("Parsing command line options.");
 		this.cmdLine = parser.parse(this.cmdOptions, this.args);
 	}
-	
+
 	public void validateCmdLineOptions() {
 		LOG.trace("Begin of validating command line options.");
-		
+
 		
 		
 		LOG.trace("End of validating command line options.");
 	}
-	
 
+	
 }
