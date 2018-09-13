@@ -2,16 +2,16 @@
 import java.io.File;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.berkholz.configurationframework.Configuration;
 import org.berkholz.helperfunctions.HelperFunctions;
 import org.berkholz.pamoba.CmdLineOption;
 import org.berkholz.pamoba.config.MainConfiguration;
-import org.berkholz.pamoba.dbms.QueryDatabase;
+import org.berkholz.pamoba.dbms.DatabaseQuery;
+import org.berkholz.pamoba.dbms.DatabaseQueryResult;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -51,11 +51,16 @@ public class Main {
 		LOG.info("Using the following configuration settings:\n" + mainConfig.print());
 
 		// QUERY COURSE IDs
-		QueryDatabase qdb = new QueryDatabase(mainConfig);
+		DatabaseQuery qdb = new DatabaseQuery(mainConfig);
 		qdb.initializeConnectionURL();
 
-		List courseIds = qdb.getCourseIds();
-		
+		List courses = qdb.getCourses();
+
+		for (Iterator iterator = courses.iterator(); iterator.hasNext();) {
+			DatabaseQueryResult next = (DatabaseQueryResult) iterator.next();
+			System.out.println(next.getId());
+
+		}
 
 		// MEASURE END
 		long measureEndTime = System.currentTimeMillis();
