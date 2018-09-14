@@ -12,6 +12,7 @@ import org.berkholz.pamoba.CmdLineOption;
 import org.berkholz.pamoba.config.MainConfiguration;
 import org.berkholz.pamoba.dbms.DatabaseQuery;
 import org.berkholz.pamoba.dbms.DatabaseQueryResult;
+import org.berkholz.pamoba.dbms.DatabaseQueryResultItem;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -51,15 +52,14 @@ public class Main {
 		LOG.info("Using the following configuration settings:\n" + mainConfig.print());
 
 		// QUERY COURSE IDs
-		DatabaseQuery qdb = new DatabaseQuery(mainConfig);
-		qdb.initializeConnectionURL();
+		DatabaseQuery dbq = new DatabaseQuery(mainConfig);
+		DatabaseQueryResult dbqr = new DatabaseQueryResult(dbq);
 
-		List courses = qdb.getCourses();
+		List courses = dbqr.getCourses();
 
 		for (Iterator iterator = courses.iterator(); iterator.hasNext();) {
-			DatabaseQueryResult next = (DatabaseQueryResult) iterator.next();
-			System.out.println(next.getId());
-
+			DatabaseQueryResultItem next = (DatabaseQueryResultItem) iterator.next();
+			System.out.println(next.getId() + ":" + next.getShortDescription() + ":" + next.getDescription());
 		}
 
 		// MEASURE END

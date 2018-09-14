@@ -8,6 +8,10 @@ package org.berkholz.pamoba.config;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
+ * Class for representing the database select settings. It is part of the
+ * MainConfiguration class and hold only settings for querying the database. It
+ * is used to create the SQL SELECT statement for querying the ids and other
+ * data.
  *
  * @author Marcel Berkholz
  */
@@ -39,19 +43,25 @@ public class DatabaseSelectConfiguration {
 	/**
 	 * CONSTRCUTOR
 	 */
-	// TODO: add javadoc
+	/**
+	 * Constructor to initialize default values for the select statement.
+	 */
 	public DatabaseSelectConfiguration() {
 		DATABASE_SELECT_CONDITION = null;
 		DATABASE_TABLE_ID_COLUMN = "id";
 		DATABASE_TABLE_SHORT_DESCRIPTION_COLUMN = "shortname";
-		DATABASE_TABLE_DESCRIPTION_COLUMN = "longname";
+		DATABASE_TABLE_DESCRIPTION_COLUMN = "fullname";
 		DATABASE_TABLE_NAME = "mdl_course";
 	}
 
 	/**
 	 * METHODS
 	 */
-	// TODO: add javadoc
+	/**
+	 * Returns the select settings to print out the configuration.
+	 *
+	 * @return Return the select settings.
+	 */
 	public String toString() {
 		return String.format("\n\t\tDATABASE_SELECT_CONDITION:\t\t\t%s\n"
 				+ "\t\tDATABASE_TABLE_ID_COLUMN:\t\t\t%s\n"
@@ -63,27 +73,48 @@ public class DatabaseSelectConfiguration {
 	/**
 	 * GETTER AND SETTER
 	 */
-	// TODO: add javadoc
+	/**
+	 * Return the table column name for the id.
+	 *
+	 * @return Return the name of the id column of the table.
+	 */
 	public String getDATABASE_TABLE_ID_COLUMN() {
 		return DATABASE_TABLE_ID_COLUMN;
 	}
 
-	// TODO: add javadoc
+	/**
+	 * Return the table column name for the short description.
+	 *
+	 * @return Return the name of the short description column of the table.
+	 */
 	public String getDATABASE_TABLE_SHORT_DESCRIPTION_COLUMN() {
 		return DATABASE_TABLE_SHORT_DESCRIPTION_COLUMN;
 	}
 
-	// TODO: add javadoc
+	/**
+	 * Return the table column name for the description.
+	 *
+	 * @return Return the name of the description column of the table.
+	 */
 	public String getDATABASE_TABLE_DESCRIPTION_COLUMN() {
 		return DATABASE_TABLE_DESCRIPTION_COLUMN;
 	}
 
-	// TODO: add javadoc
+	/**
+	 * Return the name of the table where all data should queried.
+	 *
+	 * @return Return the name of the table.
+	 */
 	public String getDATABASE_TABLE_NAME() {
 		return DATABASE_TABLE_NAME;
 	}
 
-	// TODO: add javadoc
+	/**
+	 * Return the WHERE statement of the SELECT statement to use for condition
+	 * based query.
+	 *
+	 * @return Return the WHERE condition of the SELECT statement.
+	 */
 	public String getDATABASE_SELECT_CONDITION() {
 		return DATABASE_SELECT_CONDITION;
 	}

@@ -8,6 +8,9 @@ package org.berkholz.pamoba.config;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
+ * Class for representing the database connection settings. It is part of the
+ * MainConfiguration class and hold only settings for connecting to the
+ * database.
  *
  * @author Marcel Berkholz
  */
@@ -25,7 +28,7 @@ public class DatabaseConnectionConfiguration {
 	@XmlElement(name = "DatabasePort", required = false)
 	private final int DATABASE_PORT;
 
-	// TODO: add description
+	// here you set the database type, e.g. mysql, postgres or odbc. other types are actually not supported.
 	@XmlElement(name = "DatabaseType", required = true)
 	private final String DATABASE_TYPE;
 
@@ -35,6 +38,7 @@ public class DatabaseConnectionConfiguration {
 	@XmlElement(name = "DatabasePassword", required = true)
 	private final String DATABASE_PASSWORD;
 
+	// should the connection use ssl encryption. This is used to connect to non ssl connection when verify of the ssl cert will be not accepted.
 	@XmlElement(name = "DatabaseSSLenabled")
 	private final Boolean DATABASE_SSL_ENABLED;
 
@@ -46,7 +50,7 @@ public class DatabaseConnectionConfiguration {
 	 * configuration.
 	 */
 	public DatabaseConnectionConfiguration() {
-		DATABASE_NAME = "Mdl_course";
+		DATABASE_NAME = "moodle";
 		DATABASE_PORT = 3306;
 		DATABASE_HOSTNAME = "localhost";
 		DATABASE_TYPE = "mysql";
@@ -56,8 +60,7 @@ public class DatabaseConnectionConfiguration {
 	}
 
 	/**
-	 * *********
-	 * METHODS * *********
+	 * METHODS
 	 */
 	/**
 	 * Override toString() method to get all variables printed out.
@@ -97,46 +100,48 @@ public class DatabaseConnectionConfiguration {
 		return DATABASE_HOSTNAME;
 	}
 
-	// TODO: add javadoc
 	/**
+	 * Return the port which the connection uses to connect to the database
+	 * hostname.
 	 *
-	 * @return
+	 * @return Return the port to connect to.
 	 */
 	public int getDATABASE_PORT() {
 		return DATABASE_PORT;
 	}
 
-	// TODO: add javadoc
 	/**
+	 * Return the database type, e.g. mysql, postgres or odbc. Other types are
+	 * not implemented.
 	 *
-	 * @return
+	 * @return Return the database type, e.g. mysql, postgres or odbc.
 	 */
 	public String getDATABASE_TYPE() {
 		return DATABASE_TYPE;
 	}
 
-	// TODO: add javadoc
 	/**
+	 * Return the username which is used to connect to the database.
 	 *
-	 * @return
+	 * @return Return the database username.
 	 */
 	public String getDATABASE_USERNAME() {
 		return DATABASE_USERNAME;
 	}
 
-	// TODO: add javadoc
 	/**
+	 * Return the password which is used to connect to the database.
 	 *
-	 * @return
+	 * @return Return the password of the database user.
 	 */
 	public String getDATABASE_PASSWORD() {
 		return DATABASE_PASSWORD;
 	}
 
-	// TODO: add javadoc
 	/**
+	 * Return true if SSL connection should be enabled, otherwise false.
 	 *
-	 * @return
+	 * @return Return the state of SSL enabled connection.
 	 */
 	public Boolean getDATABASE_SSL_ENABLED() {
 		return DATABASE_SSL_ENABLED;
