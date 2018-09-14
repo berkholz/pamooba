@@ -5,9 +5,20 @@
  */
 package org.berkholz.pamoba.dbms;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.berkholz.pamoba.config.MainConfiguration;
+
 /**
- * Class for representing the result of queries against the moodle database. It
- * is used for printing out the concrete moodle course that will be backed up.
+ * Class for representing the result of the database query which is created
+ * within the class DatabaseQuery.
+ *
  *
  * @author Marcel Berkholz
  */
@@ -16,68 +27,43 @@ public class DatabaseQueryResult {
 	/**
 	 * VARIABLES
 	 */
-	private Long id;
-	private String shortDescription;
-	private String description;
+	// Logger for this class.
+	private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(DatabaseQuery.class.getName());
+
+	private List courses;
+	private DatabaseQuery dbQuery;
 
 	/**
-	 * CONSTRUCTOR
+	 * CONSTRUCTORS
+	 */
+	public DatabaseQueryResult(DatabaseQuery dbQuery) {
+		this.dbQuery = dbQuery;
+	}
+
+	/**
+	 * METHODS
 	 */
 	/**
-	 * Constructor for creating a query result with a course id and its
-	 * logname.The shortname is set with an empty string.
 	 *
-	 * @param courseId
-	 * @param courseLongname
+	 * @return @throws SQLException
 	 */
-	public DatabaseQueryResult(Long courseId, String courseLongname) {
-		this(courseId, "", courseLongname);
-	}
+	public List getCourses() throws SQLException {
+		List<DatabaseQueryResultItem> listOfCourses = new ArrayList<>();
 
-	/**
-	 * Constructor for creating a query result with course id and its short- and
-	 * longname.
-	 *
-	 * @param id The result of the column with the id.
-	 * @param shortDescription The result of the column with the short description.
-	 * @param description The result of the column with the description.
-	 */
-	public DatabaseQueryResult(Long id, String shortDescription, String description) {
-		this.id = id;
-		this.shortDescription = shortDescription;
-		this.description = description;
-	}
+		try (Connection con = DriverManager.getConnection(dbQuery.getUrl(), dbQuery.getUsername(), dbQuery.getPassword())) {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(dbQuery.getSqlQuery());
 
-	/**
-	 * GETTER AND SETTER
-	 */
-	/**
-	 * Getter for the course id.
-	 *
-	 * @return Returns the course id.
-	 */
-	public Long getId() {
-		return id;
-	}
+			while (rs.next()) {
+//				System.out.println("id:" + rs.getString(1) + ", short: " + rs.getString(2) + ", long: " + rs.getString(3));
+				listOfCourses.add(new DatabaseQueryResultItem(rs.getLong(1), rs.getString(2), rs.getString(3)));
+			}
 
-	public void setId(Long id) {
-		this.id = id;
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			LOG.error(e.getLocalizedMessage());
+		}
+		return listOfCourses;
 	}
-
-	public String getShortDescription() {
-		return shortDescription;
-	}
-
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 }

@@ -5,13 +5,6 @@
  */
 package org.berkholz.pamoba.dbms;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -82,6 +75,8 @@ public class DatabaseQuery {
 
 		// every url begins with "jdbc:"
 		url = "jdbc:";
+		this.initializeConnectionURL();
+
 	}
 
 	// TODO: add javadoc 
@@ -141,26 +136,22 @@ public class DatabaseQuery {
 	}
 
 	/**
-	 *
-	 * @return @throws SQLException
+	 * GETTER AND SETTER
 	 */
-	public List getCourses() throws SQLException {
-		List<DatabaseQueryResult> listOfCourses = new ArrayList<>();
-
-		try (Connection con = DriverManager.getConnection(url, username, password)) {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlQuery);
-
-			while (rs.next()) {
-				System.out.print("1: " + rs.getString(1));
-//				listOfCourses.add(new DatabaseQueryResult(rs.getLong(1), ""));
-			}
-
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			LOG.error(e.getLocalizedMessage());
-		}
-		return listOfCourses;
+	public String getSqlQuery() {
+		return sqlQuery;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 }
