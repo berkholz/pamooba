@@ -5,12 +5,17 @@
  */
 package org.berkholz.pamoba;
 
+import java.io.File;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
+import org.berkholz.configurationframework.Configuration;
+import org.berkholz.helperfunctions.HelperFunctions;
+import org.berkholz.pamoba.config.MainConfiguration;
 
 /**
  * Class for defining the command line options.
@@ -62,7 +67,7 @@ public class CmdLineOption {
 		// TODO: specify default values
 		LOG.trace("Begin of defining command line options.");
 		cmdOptions.addOption("h", "help", false, "Shows the help.");
-		cmdOptions.addOption("D", "debuglevel", true, "Specify debug level (error, warn, info, debug, trace).");
+//		cmdOptions.addOption("D", "debuglevel", true, "Specify debug level (error, warn, info, debug, trace).");
 		cmdOptions.addOption("c", "config-file", true, "Specify the UTF-8 formatted configuration file.");
 		cmdOptions.addOption("b", "blacklist-file", true, "Specify the UTF-8 formatted blacklist file. Single course id each line. course ids will be excluded from backup. Blacklist overwrites whitelists.");
 		cmdOptions.addOption("w", "whitelist-file", true, "Specify the UTF-8 formatted whitelist file. Single course id each line. Only these course ids will backed up. Entries in blacklist file overwrites whitelist entries.");
@@ -77,13 +82,59 @@ public class CmdLineOption {
 		this.cmdLine = parser.parse(this.cmdOptions, this.args);
 	}
 
+	/**
+	 * Validate all command line options and trigger actions.
+	 */
 	public void validateCmdLineOptions() {
 		LOG.trace("Begin of validating command line options.");
-
-		
-		
+		this.validateCmdLineOptions_h();
+		this.validateCmdLineOption_d();
 		LOG.trace("End of validating command line options.");
 	}
 
-	
+	/**
+	 * Validate command line option -h.
+	 */
+	private void validateCmdLineOptions_h() {
+		LOG.trace("Validating command line option -h.");
+		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
+		if (cmdLine.hasOption("h") || cmdLine.getOptions().length == 0) {
+			LOG.trace("Print usage.");
+			this.printUsage();
+			LOG.trace("Exiting.");
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * Internal method to validate command line option -d.
+	 */
+	private void validateCmdLineOption_d() {
+		LOG.trace("Validating command line option -d.");
+		// dump out template config file
+		if (cmdLine.hasOption("d")) {
+			LOG.trace("Set default filename in user home dir.");
+			String filename = HelperFunctions.getUserHomeDirectory() + "pamoba.templ.conf.xml";
+
+			// file must exist and has to be readable
+			if (!HelperFunctions.checkFile(cmdLine.getOptionValue("d"))) {
+				filename = cmdLine.getOptionValue("d");
+			}
+			// save config with default values  and exit
+			LOG.trace("Saving default setting to template configuration file.");
+			Configuration.save(new MainConfiguration(), new File(filename));
+			LOG.trace("Exiting.");
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * Print the usage of the program.
+	 */
+	private void printUsage() {
+		HelpFormatter formatter = new HelpFormatter();
+		System.out.println("PaMoBa - PArallized MOodle BAckup\n");
+		formatter.printHelp("pamoba -h | -c <CONFIGURATION_FILE> | -d [ -b <BLACK_LIST_FILE> ] [ -w <WHITE_LIST_FILE> ]", cmdOptions);
+	}
+
 }
