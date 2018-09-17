@@ -13,6 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.berkholz.helperfunctions.HelperFunctions;
 
 /**
+ * Main configuration definition for the xml configuration file. It contains the
+ * database connection and select settings as variables from other classes.
  *
  * @author Marcel Berkholz
  */
@@ -70,6 +72,9 @@ public class MainConfiguration {
 	/**
 	 * CONSTRUCTOR
 	 */
+	/**
+	 * Constructor for creating a basic configuration file with default values.
+	 */
 	public MainConfiguration() {
 
 		this.BACKUP_DESTINATION_PATH = HelperFunctions.getTempDirectory();
@@ -100,33 +105,35 @@ public class MainConfiguration {
 	 * METHODS
 	 */
 	/**
+	 * Override the default toString() method to get a string representation of
+	 * all configuration settings.
 	 *
-	 * @return
+	 * @return Returns all class constants as string representation. Override is
+	 * used to print the configuration settings.
 	 */
-	// TODO: add all variables to toString()
-	// TODO: add javadoc
 	public String print() {
 		return String.format(
 				"\tBACKUP_DESTINATION_PATH:\t\t%s\n"
-				+ "\tFULL_BACKUP_MODE:\t\t\t%s\n"
+				+ "\tMEASUREMENT_UNIT:\t\t%s\n"
 				+ "\tMAXIMUM_RUNNING_BACKUP_JOBS:\t\t%s\n"
+				+ "\tFULL_BACKUP_MODE:\t\t\t%s\n"
 				+ "\tPHP_COMMAND:\t\t\t\t%s\n"
+				+ "\tDATABASE_CONNECTION_SETTINGS:\t%s\n"
+				+ "\tDATABASE_SELECT_SETTINGS:\t%s\n"
 				+ "\tMOODLE_BACKUP_CLI_COMMAND:\t\t%s\n"
 				+ "\tMOODLE_BACKUP_CLI_COMMAND_PARAMETERS:\t%s\n"
 				+ "\tBLACK_LIST_FILE:\t\t\t%s\n"
-				+ "\tWHITE_LIST_FILE:\t\t\t%s\n"
-				+ "\tDATABASE_CONNECTION_SETTINGS:\t%s\n"
-				+ "\tDATABASE_SELECT_SETTINGS:\t%s\n", BACKUP_DESTINATION_PATH, FULL_BACKUP_MODE, MAXIMUM_RUNNING_BACKUP_JOBS, PHP_COMMAND, MOODLE_BACKUP_CLI_COMMAND, MOODLE_BACKUP_CLI_COMMAND_PARAMETERS, BLACK_LIST_FILE, WHITE_LIST_FILE, DATABASE_CONNECTION_SETTINGS, DATABASE_SELECT_SETTINGS);
+				+ "\tWHITE_LIST_FILE:\t\t\t%s\n", BACKUP_DESTINATION_PATH, MEASUREMENT_UNIT, FULL_BACKUP_MODE, MAXIMUM_RUNNING_BACKUP_JOBS, PHP_COMMAND, MOODLE_BACKUP_CLI_COMMAND, MOODLE_BACKUP_CLI_COMMAND_PARAMETERS, BLACK_LIST_FILE, WHITE_LIST_FILE, DATABASE_CONNECTION_SETTINGS, DATABASE_SELECT_SETTINGS);
 	}
 
 	/**
 	 * GETTER AND SETTER
 	 */
 	/**
+	 * Get the destination path where backups will be saved to.
 	 *
-	 * @return
+	 * @return Return the path where backups should be stored.
 	 */
-	// TODO: add javadoc
 	public String getBACKUP_DESTINATION_PATH() {
 		return BACKUP_DESTINATION_PATH;
 	}
