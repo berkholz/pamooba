@@ -56,12 +56,26 @@ public class MainConfiguration {
 	private final String WHITE_LIST_FILE;
 
 	/**
+	 * Define the unit in which the execution time is calculated and printed.
+	 * Possible values are: <br>
+	 * <ul>
+	 * <li>S for seconds, </li>
+	 * <li>M for minutes, </loi>
+	 * <li>H for hours.</li>
+	 * </ul>
+	 */
+	@XmlElement(name = "MeasurementUnit")
+	private final char MEASUREMENT_UNIT;
+
+	/**
 	 * CONSTRUCTOR
 	 */
 	public MainConfiguration() {
 
 		this.BACKUP_DESTINATION_PATH = HelperFunctions.getTempDirectory();
 		LOG.debug("Setting default backup destination path to: " + this.BACKUP_DESTINATION_PATH);
+
+		this.MEASUREMENT_UNIT = 'M';
 
 		// TODO: calculate CPUs and set it in addiction to the number of CPUs. Now we just take 1
 		this.MAXIMUM_RUNNING_BACKUP_JOBS = 1;
