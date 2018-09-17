@@ -6,6 +6,8 @@
 package org.berkholz.pamoba;
 
 import java.text.DecimalFormat;
+import java.util.Date;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Class for measuring the execution time of code fragments. Create a new
@@ -17,13 +19,24 @@ import java.text.DecimalFormat;
  */
 public class Measure {
 
+	// Logger for this class.
+	private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(Measure.class.getName());
+
 	private long startTime;
 	private long stopTime;
-	private final String unit;
+	private final Character unit;
 
 	/**
 	 * CONSTRUCTORS
 	 */
+	/**
+	 * Constructor initializes the measure without any unit.
+	 *
+	 */
+	public Measure() {
+		this('M');
+	}
+
 	/**
 	 * Constructor initializes the measure with the specified unit. If no valid
 	 * unit is given then minutes will be defined as default unit.
@@ -35,21 +48,21 @@ public class Measure {
 	 * <li> H : hours</li>
 	 * </ul>
 	 */
-	public Measure(String unit) {
+	public Measure(Character unit) {
 		startTime = 0;
 		stopTime = 0;
-		switch (unit.toLowerCase()) {
+		switch (unit.toString().toLowerCase()) {
 			case "m":
-				this.unit = "M";
+				this.unit = 'M';
 				break;
 			case "h":
-				this.unit = "H";
+				this.unit = 'H';
 				break;
 			case "s":
-				this.unit = "S";
+				this.unit = 'S';
 				break;
 			default:
-				this.unit = "M";
+				this.unit = 'M';
 				break;
 		}
 	}
@@ -62,6 +75,7 @@ public class Measure {
 	 */
 	public void start() {
 		this.startTime = System.currentTimeMillis();
+		LOG.debug("Starting measurement at : " + new Date());
 	}
 
 	/**
@@ -69,6 +83,7 @@ public class Measure {
 	 */
 	public void stop() {
 		this.stopTime = System.currentTimeMillis();
+		LOG.debug("Stopping measurement at : " + new Date());
 	}
 
 	/**
@@ -79,13 +94,13 @@ public class Measure {
 	public String getExecutionTime() {
 		String returnTime;
 		switch (this.unit) {
-			case "S":
+			case 'S':
 				returnTime = new DecimalFormat("#0.000000").format((stopTime - startTime) / 1000d);
 				break;
-			case "M":
+			case 'M':
 				returnTime = new DecimalFormat("#0.00000000").format((stopTime - startTime) / 1000d / 60d);
 				break;
-			case "H":
+			case 'H':
 				returnTime = new DecimalFormat("#0.0000000000").format((stopTime - startTime) / 1000d / 60d / 60d);
 				break;
 			// in minutes
