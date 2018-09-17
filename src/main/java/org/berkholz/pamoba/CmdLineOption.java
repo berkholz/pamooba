@@ -43,7 +43,6 @@ public class CmdLineOption {
 	/**
 	 * CONSTRUCTORS
 	 */
-	
 	/**
 	 *
 	 * @param args
@@ -56,7 +55,6 @@ public class CmdLineOption {
 	/**
 	 * METHODS
 	 */
-	
 	/**
 	 * Method for setup all command line options.
 	 *
@@ -89,17 +87,19 @@ public class CmdLineOption {
 		LOG.trace("Begin of validating command line options.");
 		this.validateCmdLineOptions_h();
 		this.validateCmdLineOption_d();
+		this.validateCmdLineOption_c();
+		this.validateCmdLineOption_w();
+		this.validateCmdLineOption_b();
 		LOG.trace("End of validating command line options.");
 	}
 
 	/**
-	 * Validate command line option -h.
+	 * Internal method to validate command line option -h.
 	 */
 	private void validateCmdLineOptions_h() {
 		LOG.trace("Validating command line option -h.");
 		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
 		if (cmdLine.hasOption("h") || cmdLine.getOptions().length == 0) {
-			LOG.trace("Print usage.");
 			this.printUsage();
 			LOG.trace("Exiting.");
 			System.exit(0);
@@ -107,21 +107,74 @@ public class CmdLineOption {
 	}
 
 	/**
+	 * Internal method to validate command line option -c.
+	 */
+	private void validateCmdLineOption_c() {
+		LOG.trace("Validating command line option -c.");
+
+		if (cmdLine.hasOption("c") && !cmdLine.hasOption("d")) {
+			if (!HelperFunctions.checkFile(cmdLine.getOptionValue("c"))) {
+				LOG.error("Configuration file (" + cmdLine.getOptionValue("c") + ") does not exist or is not readable. Exiting.");
+				printUsage();
+				System.exit(1);
+			}
+			LOG.debug("Configuration file (" + cmdLine.getOptionValue("c") + ") found and is readable.");
+		} else {
+			// check pamoba.conf.xml in home dir
+			String localConfigFile = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml";
+			LOG.trace("No configuration file given on command line. Searching for configuration file " + localConfigFile + "in user home directory.");
+
+			if (!HelperFunctions.checkFile(localConfigFile)) {
+				LOG.error("No Configuration file given on command line and could not find local configuration file in user home directory. Exiting.");
+				System.exit(1);
+
+			}
+			LOG.info("Found local configuration (" + localConfigFile + ") in user home directory.");
+		}
+	}
+
+	/**
+	 * Internal method to validate command line option -b.
+	 */
+	private void validateCmdLineOption_b() {
+		LOG.trace("Validating command line option -b.");
+		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
+		if (cmdLine.hasOption("b")) {
+			LOG.info("Option -b not yet implemented.");
+		}
+	}
+
+	/**
+	 * Internal method to validate command line option -w.
+	 */
+	private void validateCmdLineOption_w() {
+		LOG.trace("Validating command line option -.");
+		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
+		if (cmdLine.hasOption("")) {
+			LOG.info("Option -w not yet implemented.");
+		}
+	}
+
+	/**
 	 * Internal method to validate command line option -d.
 	 */
 	private void validateCmdLineOption_d() {
+		String filename;
+
 		LOG.trace("Validating command line option -d.");
 		// dump out template config file
 		if (cmdLine.hasOption("d")) {
-			LOG.trace("Set default filename in user home dir.");
-			String filename = HelperFunctions.getUserHomeDirectory() + "pamoba.templ.conf.xml";
 
 			// file must exist and has to be readable
-			if (!HelperFunctions.checkFile(cmdLine.getOptionValue("d"))) {
+			if (HelperFunctions.checkFile(cmdLine.getOptionValue("d"))) {
 				filename = cmdLine.getOptionValue("d");
+			} else {
+				LOG.trace("Set default filename in user home dir.");
+				filename = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.templ.conf.xml";
 			}
+
 			// save config with default values  and exit
-			LOG.trace("Saving default setting to template configuration file.");
+			LOG.trace("Saving default settings to template configuration file: " + filename);
 			Configuration.save(new MainConfiguration(), new File(filename));
 			LOG.trace("Exiting.");
 			System.exit(0);
@@ -135,6 +188,13 @@ public class CmdLineOption {
 		HelpFormatter formatter = new HelpFormatter();
 		System.out.println("PaMoBa - PArallized MOodle BAckup\n");
 		formatter.printHelp("pamoba -h | -c <CONFIGURATION_FILE> | -d [ -b <BLACK_LIST_FILE> ] [ -w <WHITE_LIST_FILE> ]", cmdOptions);
+	}
+
+	/**
+	 * GETTER AND SETTER
+	 */
+	public CommandLine getCmdLine() {
+		return cmdLine;
 	}
 
 }
