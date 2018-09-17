@@ -1,14 +1,13 @@
 
 import java.io.File;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.berkholz.configurationframework.Configuration;
-import org.berkholz.helperfunctions.HelperFunctions;
 import org.berkholz.pamoba.CmdLineOption;
+import org.berkholz.pamoba.Measure;
 import org.berkholz.pamoba.config.MainConfiguration;
 import org.berkholz.pamoba.dbms.DatabaseQuery;
 import org.berkholz.pamoba.dbms.DatabaseQueryResult;
@@ -31,22 +30,22 @@ public class Main {
 	public static void main(String[] args) throws SQLException {
 
 		// MEASURE START
-		long measureStartTime = System.currentTimeMillis();
-		LOG.debug("Defining start time for measuring the execution time of the complete program: " + measureStartTime);
+		Measure measureTime = new Measure('M');
+		measureTime.start();
+		LOG.debug("Defining start time for measuring the execution time of the complete program: " + measureTime.getStartTime());
 
 		// COMMAND LINE PARSING
 		LOG.debug("Initiating the command line options.");
 		CmdLineOption commandLineOptions = new CmdLineOption(args);
 		try {
 			commandLineOptions.setCmdLineOptions();
+			commandLineOptions.validateCmdLineOptions();
 		} catch (ParseException ex) {
 			LOG.error("Something went wrong on parsing the command line options: " + ex.getLocalizedMessage());
 		}
 
-		// CONFIG SAVE
-//		Configuration.save(new MainConfiguration(), new File(HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml"));
 		// CONFIG LOAD
-		MainConfiguration mainConfig = (MainConfiguration) Configuration.load(MainConfiguration.class, new File(HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml"));
+		MainConfiguration mainConfig = (MainConfiguration) Configuration.load(MainConfiguration.class, new File(commandLineOptions.getCmdLine().getOptionValue("c")));
 
 		// PRINT CONFIG
 		LOG.info("Using the following configuration settings:\n" + mainConfig.print());
@@ -63,12 +62,12 @@ public class Main {
 		}
 
 		// MEASURE END
-		long measureEndTime = System.currentTimeMillis();
-		LOG.debug("Defining end time for measuring the execution time of the complete program: " + measureEndTime);
+//		long measureEndTime = System.currentTimeMillis();
+		measureTime.stop();
+		LOG.debug("Defining end time for measuring the execution time of the complete program: " + measureTime.getStopTime());
 
 		// LOG
-		LOG.info(String.format("Execution time: %s %s",
-				new DecimalFormat("#0.0000").format((measureEndTime - measureStartTime) / 1000d), "seconds"));
+		LOG.info(String.format("Execution time: %s ", measureTime.getExecutionTime()));
 
 	}
 }
