@@ -44,8 +44,9 @@ public class CmdLineOption {
 	 * CONSTRUCTORS
 	 */
 	/**
+	 * Constructor which gets the command line options of the main program.
 	 *
-	 * @param args
+	 * @param args Command line options from the main program.
 	 */
 	public CmdLineOption(String args[]) {
 		this.cmdOptions = new Options();
