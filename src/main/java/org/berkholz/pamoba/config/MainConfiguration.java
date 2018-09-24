@@ -218,4 +218,14 @@ public class MainConfiguration {
 	public String getWHITE_LIST_FILE() {
 		return WHITE_LIST_FILE;
 	}
+
+	/**
+	 * Get the measurement unit.
+	 *
+	 * @return Return the measure unit.
+	 */
+	public char getMEASUREMENT_UNIT() {
+		return MEASUREMENT_UNIT;
+	}
+
 }
