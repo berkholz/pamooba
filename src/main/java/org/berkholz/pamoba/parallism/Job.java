@@ -85,4 +85,15 @@ public class Job implements Runnable {
 		LOG.info(logPrefix + "Execution time: " + measureTime.getExecutionTime());
 	}
 
+	/**
+	 * GETTER AND SETTER
+	 */
+	/**
+	 * Return the id of the job id (course id).
+	 *
+	 * @return Return the job id.
+	 */
+	public Long getId() {
+		return id;
+	}
 }
