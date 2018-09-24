@@ -20,6 +20,16 @@ import org.berkholz.pamoba.dbms.DatabaseQueryResultItem;
  */
 /**
  *
+ * 
+ * Exit codes: <br>
+ * <ul>
+ *	<li> 0 : No errors.</li>
+ *	<li>10 :</li>
+ *	<li>20 : No jobs where added to internal List. </li>
+ *	<li></li>
+ * </ul>
+ * 
+ * 
  * @author Marcel Berkholz
  */
 public class Main {
