@@ -39,13 +39,16 @@ public class Main {
 		CmdLineOption commandLineOptions = new CmdLineOption(args);
 		try {
 			commandLineOptions.setCmdLineOptions();
-			commandLineOptions.validateCmdLineOptions();
 		} catch (ParseException ex) {
 			LOG.error("Something went wrong on parsing the command line options: " + ex.getLocalizedMessage());
 		}
+		commandLineOptions.validateCmdLineOptions();
 
 		// CONFIG LOAD
 		MainConfiguration mainConfig = (MainConfiguration) Configuration.load(MainConfiguration.class, new File(commandLineOptions.getCmdLine().getOptionValue("c")));
+
+		// set the corret measurement unit
+		measureTime.setUnit(mainConfig.getMEASUREMENT_UNIT());
 
 		// PRINT CONFIG
 		LOG.info("Using the following configuration settings:\n" + mainConfig.print());
