@@ -24,7 +24,7 @@ public class Measure {
 
 	private long startTime;
 	private long stopTime;
-	private final Character unit;
+	private Character unit;
 
 	/**
 	 * CONSTRUCTORS
@@ -132,4 +132,12 @@ public class Measure {
 		return stopTime;
 	}
 
+	/**
+	 * Set the measure unit.
+	 *
+	 * @param measureUnit The unit in which the execution time is printed.
+	 */
+	public void setUnit(Character measureUnit) {
+		this.unit = measureUnit;
+	}
 }
