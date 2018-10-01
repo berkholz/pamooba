@@ -39,6 +39,9 @@ public class MainConfiguration {
 	@XmlElement(name = "MaximumRunningBackupJobs")
 	private final Integer MAXIMUM_RUNNING_BACKUP_JOBS;
 
+	@XmlElement(name = "ExecutorShutdownTimeout")
+	private final Long EXECUTOR_SHUTDOWN_TIMEOUT;
+
 	@XmlElement(name = "DatabaseSelectSettings")
 	private DatabaseSelectConfiguration DATABASE_SELECT_SETTINGS;
 
@@ -85,6 +88,9 @@ public class MainConfiguration {
 		// TODO: calculate CPUs and set it in addiction to the number of CPUs. Now we just take 1
 		this.MAXIMUM_RUNNING_BACKUP_JOBS = 1;
 
+		// timeout in minutes for awaiting shutdown of the executor service
+		this.EXECUTOR_SHUTDOWN_TIMEOUT = 5L;
+		
 		// only full backups by default
 		this.FULL_BACKUP_MODE = true;
 
@@ -116,6 +122,7 @@ public class MainConfiguration {
 				"\tBACKUP_DESTINATION_PATH:\t\t%s\n"
 				+ "\tMEASUREMENT_UNIT:\t\t%s\n"
 				+ "\tMAXIMUM_RUNNING_BACKUP_JOBS:\t\t%s\n"
+				+ "\tEXECUTOR_SHUTDOWN_TIMEOUT:\t\t%s\n"
 				+ "\tFULL_BACKUP_MODE:\t\t\t%s\n"
 				+ "\tPHP_COMMAND:\t\t\t\t%s\n"
 				+ "\tDATABASE_CONNECTION_SETTINGS:\t%s\n"
@@ -123,7 +130,7 @@ public class MainConfiguration {
 				+ "\tMOODLE_BACKUP_CLI_COMMAND:\t\t%s\n"
 				+ "\tMOODLE_BACKUP_CLI_COMMAND_PARAMETERS:\t%s\n"
 				+ "\tBLACK_LIST_FILE:\t\t\t%s\n"
-				+ "\tWHITE_LIST_FILE:\t\t\t%s\n", BACKUP_DESTINATION_PATH, MEASUREMENT_UNIT, FULL_BACKUP_MODE, MAXIMUM_RUNNING_BACKUP_JOBS, PHP_COMMAND, MOODLE_BACKUP_CLI_COMMAND, MOODLE_BACKUP_CLI_COMMAND_PARAMETERS, BLACK_LIST_FILE, WHITE_LIST_FILE, DATABASE_CONNECTION_SETTINGS, DATABASE_SELECT_SETTINGS);
+				+ "\tWHITE_LIST_FILE:\t\t\t%s\n", BACKUP_DESTINATION_PATH, MEASUREMENT_UNIT, MAXIMUM_RUNNING_BACKUP_JOBS, EXECUTOR_SHUTDOWN_TIMEOUT, FULL_BACKUP_MODE, PHP_COMMAND, DATABASE_CONNECTION_SETTINGS, DATABASE_SELECT_SETTINGS, MOODLE_BACKUP_CLI_COMMAND, MOODLE_BACKUP_CLI_COMMAND_PARAMETERS, BLACK_LIST_FILE, WHITE_LIST_FILE);
 	}
 
 	/**
@@ -226,6 +233,15 @@ public class MainConfiguration {
 	 */
 	public char getMEASUREMENT_UNIT() {
 		return MEASUREMENT_UNIT;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	// TODO: add javadoc
+	public Long getEXECUTOR_SHUTDOWN_TIMEOUT() {
+		return EXECUTOR_SHUTDOWN_TIMEOUT;
 	}
 
 }
