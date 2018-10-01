@@ -16,12 +16,26 @@ import org.berkholz.pamoba.config.MainConfiguration;
  */
 public class BackupCommand {
 
+	/**
+	 * VARIABLES
+	 */
 	private final MainConfiguration mainConfig;
 
+	/**
+	 * CONSTRUCTORS
+	 */
+	/**
+	 * Initialize with the main configuration file.
+	 *
+	 * @param config Configuration file with all settings.
+	 */
 	public BackupCommand(MainConfiguration config) {
 		mainConfig = config;
 	}
 
+	/**
+	 * METHODS
+	 */
 	/**
 	 * Get the moodle backup command for executing on the shell.
 	 *
@@ -36,7 +50,6 @@ public class BackupCommand {
 		command.add("--courseid=" + id);
 		command.add("--destination=" + mainConfig.getBACKUP_DESTINATION_PATH());
 		command.addAll(mainConfig.getMOODLE_BACKUP_CLI_COMMAND_PARAMETERS());
-
 		return command;
 	}
 }
