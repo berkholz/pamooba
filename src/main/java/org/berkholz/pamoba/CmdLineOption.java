@@ -40,6 +40,9 @@ public class CmdLineOption {
 	private final String[] args;
 	private CommandLine cmdLine;
 
+	// examined configuration filename
+	private String configurationFilename;
+
 	/**
 	 * CONSTRUCTORS
 	 */
@@ -62,7 +65,6 @@ public class CmdLineOption {
 	 * @throws org.apache.commons.cli.ParseException
 	 */
 	public void setCmdLineOptions() throws ParseException {
-		// options definitions
 		// TODO: specify default values
 		LOG.trace("Begin of defining command line options.");
 		cmdOptions.addOption("h", "help", false, "Shows the help.");
@@ -101,10 +103,12 @@ public class CmdLineOption {
 		LOG.trace("Validating command line option -h.");
 		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
 		if (cmdLine.hasOption("h") || cmdLine.getOptions().length == 0) {
+			LOG.info("No command line option given.");
 			this.printUsage();
 			LOG.trace("Exiting.");
 			System.exit(0);
 		}
+		LOG.trace("End of validating command line option -h.");
 	}
 
 	/**
@@ -113,24 +117,30 @@ public class CmdLineOption {
 	private void validateCmdLineOption_c() {
 		LOG.trace("Validating command line option -c.");
 
+		// Option -c and not option -d found
 		if (cmdLine.hasOption("c") && !cmdLine.hasOption("d")) {
-			if (!HelperFunctions.checkFile(cmdLine.getOptionValue("c"))) {
+			// check if option -c has a value
+			if (cmdLine.getOptionValue("c").isEmpty()) {
+				//search for local pamoba.conf.xml
+				String localConfigFile = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml";
+				LOG.trace("No configuration file given on command line. Searching for configuration file " + localConfigFile + "in user home directory.");
+
+				if (HelperFunctions.checkFile(localConfigFile)) {
+					LOG.info("Found local configuration (" + localConfigFile + ") in user home directory.");
+					this.configurationFilename = localConfigFile;
+				} else {
+					LOG.error("Could not find local configuration file in user home directory. Exiting.");
+					printUsage();
+					System.exit(2);
+				}
+				// check if file from option -c exist and is readable 
+			} else if (HelperFunctions.checkFile(cmdLine.getOptionValue("c"))) {
+				LOG.debug("Configuration file (" + cmdLine.getOptionValue("c") + ") found and is readable.");
+			} else {
 				LOG.error("Configuration file (" + cmdLine.getOptionValue("c") + ") does not exist or is not readable. Exiting.");
-				printUsage();
-				System.exit(1);
 			}
-			LOG.debug("Configuration file (" + cmdLine.getOptionValue("c") + ") found and is readable.");
 		} else {
-			// check pamoba.conf.xml in home dir
-			String localConfigFile = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.conf.xml";
-			LOG.trace("No configuration file given on command line. Searching for configuration file " + localConfigFile + "in user home directory.");
-
-			if (!HelperFunctions.checkFile(localConfigFile)) {
-				LOG.error("No Configuration file given on command line and could not find local configuration file in user home directory. Exiting.");
-				System.exit(1);
-
-			}
-			LOG.info("Found local configuration (" + localConfigFile + ") in user home directory.");
+			LOG.debug("No option -c specified on command line.");
 		}
 	}
 
@@ -194,8 +204,22 @@ public class CmdLineOption {
 	/**
 	 * GETTER AND SETTER
 	 */
+	/**
+	 * Get command line options.
+	 *
+	 * @return Return the cmdLine.
+	 */
 	public CommandLine getCmdLine() {
 		return cmdLine;
+	}
+
+	/**
+	 * Get the full name of the examined configuration file.
+	 *
+	 * @return Return configuration file name.
+	 */
+	public String getConfigurationFilename() {
+		return configurationFilename;
 	}
 
 }
