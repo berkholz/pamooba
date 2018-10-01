@@ -28,8 +28,9 @@ public class Job implements Runnable {
 
 	// this represents the os process
 	private ProcessBuilder psBuilder;
-	private MainConfiguration config;
+	private final MainConfiguration config;
 	private final Long id;
+	private final List<String> moodleBackupCommand;
 
 	/**
 	 * CONSTRUCTORS
@@ -45,7 +46,7 @@ public class Job implements Runnable {
 		this.id = id;
 		this.config = mainConfig;
 		psBuilder = new ProcessBuilder();
-
+		this.moodleBackupCommand = new BackupCommand(mainConfig).getMoodleBackupCommand(id);
 	}
 
 	@Override
@@ -59,7 +60,6 @@ public class Job implements Runnable {
 		LOG.trace("Set prefix for process logging to: " + logPrefix);
 
 		// init the process with the backup command
-		List<String> moodleBackupCommand = new BackupCommand(config).getMoodleBackupCommand(id);
 		psBuilder = psBuilder.redirectErrorStream(true)
 				.command(moodleBackupCommand)
 				.directory(new File(config.getBACKUP_DESTINATION_PATH()));
