@@ -44,6 +44,7 @@ public class DatabaseQuery {
 	private final String dbTableShortDescriptionColumn;
 	private final String dbTableDescriptionColumn;
 	private final String dbSelectCondition;
+	private final Boolean dbSSLenabled;
 
 	/**
 	 * CONSTRUCTORS
@@ -69,18 +70,19 @@ public class DatabaseQuery {
 		username = dbConSets.getDATABASE_USERNAME();
 		password = dbConSets.getDATABASE_PASSWORD();
 		port = dbConSets.getDATABASE_PORT();
-
+		dbSSLenabled = dbConSets.getDATABASE_SSL_ENABLED();
 		// create SQL statement 
 		this.initializeQuery();
 
 		// every url begins with "jdbc:"
 		url = "jdbc:";
 		this.initializeConnectionURL();
-
 	}
 
-	// TODO: add javadoc 
-	// TODO: implement
+	/**
+	 * Create the SQL query to get all courses and their informations.
+	 */
+	// TODO: check for sqlinjection
 	private void initializeQuery() {
 		String sqlstatement = "SELECT " + dbTableIdColumn + "," + dbTableShortDescriptionColumn + "," + dbTableDescriptionColumn + " FROM " + dbname + "." + dbTable;
 		if (dbSelectCondition == null || dbSelectCondition.isEmpty()) {
@@ -92,43 +94,63 @@ public class DatabaseQuery {
 		sqlQuery = sqlstatement;
 	}
 
-	// TODO: add javadoc 
 	// TODO: implement
+	/**
+	 * Validate the SQL query for reducing SQL injections.
+	 *
+	 * @return Return true if SQL query is valid, otherwise false.
+	 */
 	public Boolean validateQuery() {
 		return true;
 	}
 
-	// TODO: useSSL in configuration implementieren
-	// TODO: add javadoc
+	/**
+	 * Initialize the connection URL and loading the database driver. The
+	 * following drivers are yet supported:
+	 * <ul>
+	 * <li>postgresql (for PostgreSQL (v7.0 and later))</li>
+	 * <li>mysql (for MySQL since 5.6)</li>
+	 * <li>generic JdbcOdbcDriver</li>
+	 * </ul>
+	 *
+	 * If SSL certificate checking should be disabled, the configuration option
+	 * DatabaseSSLenabled have to be set to false:
+	 * <p>
+	 * <DatabaseSSLenabled>false</DatabaseSSLenabled>
+	 * </p>
+	 */
 	public void initializeConnectionURL() {
 		LOG.trace("Initializing the connection URL.");
 		switch (dbtype) {
 			//PostgreSQL (v7.0 and later)
 			case "postgresql": {
 				try {
+					LOG.trace("Loading database driver: org.postgresql.Driver.");
 					Class.forName("org.postgresql.Driver");
 				} catch (ClassNotFoundException ex) {
 					Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
 				}
-				url += "postgresql://" + hostname + ":" + port + "/" + dbname + "?useSSL=false";
+				url += "postgresql://" + hostname + ":" + port + "/" + dbname + "?useSSL=" + dbSSLenabled;
 				break;
 			}
 			case "mysql": {
 				try {
+					LOG.trace("Loading database driver: com.mysql.cj.jdbc.Driver.");
 					Class.forName("com.mysql.cj.jdbc.Driver");
 				} catch (ClassNotFoundException ex) {
 					Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
 				}
-				url += "mysql://" + hostname + ":" + port + "/" + dbname + "?useSSL=false";
+				url += "mysql://" + hostname + ":" + port + "/" + dbname + "?useSSL=" + dbSSLenabled;
 				break;
 			}
 			default: {
 				try {
+					LOG.trace("Loading database driver: sun.jdbc.odbc.JdbcOdbcDriver.");
 					Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 				} catch (ClassNotFoundException ex) {
 					Logger.getLogger(DatabaseQuery.class.getName()).log(Level.SEVERE, null, ex);
 				}
-				url += "odbc:" + dbname + "?useSSL=false";
+				url += "odbc:" + dbname + "?useSSL=" + dbSSLenabled;
 				break;
 			}
 		}
@@ -138,18 +160,38 @@ public class DatabaseQuery {
 	/**
 	 * GETTER AND SETTER
 	 */
+	/**
+	 * Get the SQL query to get the courses.
+	 *
+	 * @return Return the SQL query.
+	 */
 	public String getSqlQuery() {
 		return sqlQuery;
 	}
 
+	/**
+	 * Get the database connection URL .
+	 *
+	 * @return Returns the database connection URL.
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Get the username to connect with to the database.
+	 *
+	 * @return Return the database user for the connection.
+	 */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 * Get the password for the database connection user.
+	 *
+	 * @return Return the password of database connection user.
+	 */
 	public String getPassword() {
 		return password;
 	}
