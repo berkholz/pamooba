@@ -26,7 +26,9 @@ import org.berkholz.pamoba.parallism.ThreadPool;
  * Exit codes: <br>
  * <ul>
  * <li> 0 : No errors.</li>
- * <li> 2 : No local configuration file found, but command line option -c given.</li>
+ * <li> 2 : No local configuration file found, but command line option -c
+ * given.</li>
+ * <li> 4: No valid black list file given.</li>
  * <li>20 : No jobs where added to internal List. </li>
  * <li></li>
  * </ul>
@@ -38,7 +40,7 @@ public class Main {
 
 	// Logger for this class. See, https://logging.apache.org/log4j/2.x/
 	private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(Main.class.getName());
-
+	
 	public static void main(String[] args) throws SQLException {
 
 		// MEASURE START
@@ -69,22 +71,36 @@ public class Main {
 		LOG.info("Using the following configuration settings:\n" + mainConfig.print());
 
 		// QUERY COURSE IDs
+		LOG.trace("Create database query with config file.");
 		DatabaseQuery dbq = new DatabaseQuery(mainConfig);
+		LOG.trace("Read in all course from database.");
 		DatabaseQueryResult dbqr = new DatabaseQueryResult(dbq);
 
-		List courses = dbqr.getCourses();
+		// filter white list, before black list
+		LOG.trace("Set white list file.");
+		dbqr.setWhitelist(commandLineOptions.getCmdLine().getOptionValue("w"));
 
+		// process blacklist
+		LOG.trace("Set black list file");
+		dbqr.setBlacklist(commandLineOptions.getCmdLine().getOptionValue("b"));
+		
+		LOG.trace("Get courses calculated with black and white list.");
+		List courses = dbqr.getCourses();
+		
+		LOG.trace("Iterate over all courses");
 		for (Iterator iterator = courses.iterator(); iterator.hasNext();) {
 			DatabaseQueryResultItem next = (DatabaseQueryResultItem) iterator.next();
-			System.out.println(next.getId() + ":" + next.getShortDescription() + ":" + next.getDescription());
+			LOG.debug(next.getId() + ":" + next.getShortDescription() + ":" + next.getDescription());
 			// add new Job with id an dmainconfig to fixedThreadPool
+			LOG.trace("Add new Job with id " + next.getId() + "an dmainconfig to fixedThreadPool.");
 			ftp.addJob(new Job(next.getId(), mainConfig));
 		}
-
-		// start FixedThreadPool
+		
+		LOG.trace("Submit all jobs in FixedThreadPool.");
 		ftp.submit();
 
 		// shutdown 
+		LOG.trace("Shutdown execution service.");
 		ftp.shutdown();
 
 		// MEASURE END
@@ -94,6 +110,6 @@ public class Main {
 
 		// LOG
 		LOG.info(String.format("Execution time: %s ", measureTime.getExecutionTime()));
-
+		
 	}
 }
