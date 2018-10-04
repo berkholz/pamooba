@@ -61,10 +61,20 @@ public class DatabaseQueryResultItem {
 		return id;
 	}
 
+	/**
+	 * Getter for the short description.
+	 *
+	 * @return Return the short description.
+	 */
 	public String getShortDescription() {
 		return shortDescription;
 	}
 
+	/**
+	 * Getter for the description.
+	 *
+	 * @return Return the description.
+	 */
 	public String getDescription() {
 		return description;
 	}
