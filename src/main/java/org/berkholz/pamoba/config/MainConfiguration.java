@@ -90,7 +90,7 @@ public class MainConfiguration {
 
 		// timeout in minutes for awaiting shutdown of the executor service
 		this.EXECUTOR_SHUTDOWN_TIMEOUT = 5L;
-		
+
 		// only full backups by default
 		this.FULL_BACKUP_MODE = true;
 
@@ -146,82 +146,82 @@ public class MainConfiguration {
 	}
 
 	/**
+	 * Get the full path and file name of PHP binary.
 	 *
-	 * @return
+	 * @return Return the full path to PHP command binaries.
 	 */
-	// TODO: add javadoc
 	public String getPHP_COMMAND() {
 		return PHP_COMMAND;
 	}
 
 	/**
+	 * Method for indicating the backup mode.
 	 *
-	 * @return
+	 * @return True if backup should be made in FULL MODE, otherwise false.
 	 */
-	// TODO: add javadoc
 	public Boolean getFULL_BACKUP_MODE() {
 		return FULL_BACKUP_MODE;
 	}
 
 	/**
+	 * Get the maximum amount of jobs running parallel.
 	 *
-	 * @return
+	 * @return Return the maximum of parallel running jobs.
 	 */
-	// TODO: add javadoc
 	public Integer getMAXIMUM_RUNNING_BACKUP_JOBS() {
 		return MAXIMUM_RUNNING_BACKUP_JOBS;
 	}
 
 	/**
+	 * Get the setting for select of the database.
 	 *
-	 * @return
+	 * @return Return the select setting for querying the database.
 	 */
-	// TODO: add javadoc
 	public DatabaseSelectConfiguration getDATABASE_SELECT_SETTINGS() {
 		return DATABASE_SELECT_SETTINGS;
 	}
 
 	/**
+	 * Get the database connection setting, e.g. database user, password etc.
 	 *
-	 * @return
+	 * @return Return the database connection settings.
 	 */
-	// TODO: add javadoc
 	public DatabaseConnectionConfiguration getDATABASE_CONNECTION_SETTINGS() {
 		return DATABASE_CONNECTION_SETTINGS;
 	}
 
 	/**
+	 * Get the moodle backup command.
 	 *
-	 * @return
+	 * @return Return the backup command in moodle for backup.
 	 */
-	// TODO: add javadoc
 	public String getMOODLE_BACKUP_CLI_COMMAND() {
 		return MOODLE_BACKUP_CLI_COMMAND;
 	}
 
 	/**
+	 * Get the moodle backup command parameters.
 	 *
-	 * @return
+	 * @return Return the parameters for the moodle backup command.
 	 */
-	// TODO: add javadoc
 	public ArrayList getMOODLE_BACKUP_CLI_COMMAND_PARAMETERS() {
 		return MOODLE_BACKUP_CLI_COMMAND_PARAMETERS;
 	}
 
 	/**
+	 * Get the file name of the black list file.
 	 *
-	 * @return
+	 * @return Return the file name of the black list.
 	 */
-	// TODO: add javadoc
 	public String getBLACK_LIST_FILE() {
 		return BLACK_LIST_FILE;
 	}
 
 	/**
+	 * Get the file name of the white list file.
 	 *
-	 * @return
+	 * @return Return the file name of the white list.
 	 */
-	// TODO: add javadoc
 	public String getWHITE_LIST_FILE() {
 		return WHITE_LIST_FILE;
 	}
@@ -236,10 +236,10 @@ public class MainConfiguration {
 	}
 
 	/**
+	 * Get the shutdown timeout for the executor service.
 	 *
-	 * @return
+	 * @return Return the executor shutdown timeout.
 	 */
-	// TODO: add javadoc
 	public Long getEXECUTOR_SHUTDOWN_TIMEOUT() {
 		return EXECUTOR_SHUTDOWN_TIMEOUT;
 	}

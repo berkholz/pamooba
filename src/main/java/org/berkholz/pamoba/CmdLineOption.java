@@ -62,7 +62,8 @@ public class CmdLineOption {
 	/**
 	 * Method for setup all command line options.
 	 *
-	 * @throws org.apache.commons.cli.ParseException
+	 * @throws org.apache.commons.cli.ParseException Throws a ParseException in
+	 * case of parsing illegal options.
 	 */
 	public void setCmdLineOptions() throws ParseException {
 		// TODO: specify default values

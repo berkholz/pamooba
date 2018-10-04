@@ -116,7 +116,7 @@ public class DatabaseQuery {
 	 * If SSL certificate checking should be disabled, the configuration option
 	 * DatabaseSSLenabled have to be set to false:
 	 * <p>
-	 * <DatabaseSSLenabled>false</DatabaseSSLenabled>
+	 * &lt;DatabaseSSLenabled&gt;false&lt;/DatabaseSSLenabled&gt;
 	 * </p>
 	 */
 	public void initializeConnectionURL() {

@@ -24,19 +24,8 @@ public class DatabaseQueryResultItem {
 	 * CONSTRUCTOR
 	 */
 	/**
-	 * Constructor for creating a query result with a course id and its
-	 * logname.The shortname is set with an empty string.
-	 *
-	 * @param courseId
-	 * @param courseLongname
-	 */
-	public DatabaseQueryResultItem(Long courseId, String courseLongname) {
-		this(courseId, "", courseLongname);
-	}
-
-	/**
-	 * Constructor for creating a query result with course id and its short- and
-	 * longname.
+	 * Constructor for creating a query result with course id and its short
+	 * description and normal description.
 	 *
 	 * @param id The result of the column with the id.
 	 * @param shortDescription The result of the column with the short
