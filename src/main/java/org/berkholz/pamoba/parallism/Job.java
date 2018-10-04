@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.berkholz.pamoba.BackupCommand;
@@ -51,13 +52,14 @@ public class Job implements Runnable {
 
 	@Override
 	public void run() {
-		Process process;
-		Measure measureTime = new Measure(config.getMEASUREMENT_UNIT());
-		measureTime.start();
-
 		// log prefix for every process
 		String logPrefix = "[" + this.id + "] ";
 		LOG.trace(logPrefix + "Set prefix for process logging.");
+
+		Process process;
+		Measure measureTime = new Measure(config.getMEASUREMENT_UNIT());
+		measureTime.start();
+		LOG.info(logPrefix + "Start measure at " + new Date(measureTime.getStartTime()) + ".");
 
 		// init the process with the backup command
 		psBuilder = psBuilder.redirectErrorStream(true)
@@ -83,6 +85,7 @@ public class Job implements Runnable {
 		}
 
 		measureTime.stop();
+		LOG.info(logPrefix + "Stop measure at " + new Date(measureTime.getStopTime()) + ".");
 		LOG.info(logPrefix + "Execution time: " + measureTime.getExecutionTime());
 	}
 

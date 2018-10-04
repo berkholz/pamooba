@@ -6,7 +6,6 @@
 package org.berkholz.pamoba;
 
 import java.text.DecimalFormat;
-import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 
 /**
@@ -75,7 +74,6 @@ public class Measure {
 	 */
 	public void start() {
 		this.startTime = System.currentTimeMillis();
-		LOG.debug("Starting measurement at : " + new Date());
 	}
 
 	/**
@@ -83,7 +81,6 @@ public class Measure {
 	 */
 	public void stop() {
 		this.stopTime = System.currentTimeMillis();
-		LOG.debug("Stopping measurement at : " + new Date());
 	}
 
 	/**
