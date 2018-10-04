@@ -57,18 +57,19 @@ public class Job implements Runnable {
 
 		// log prefix for every process
 		String logPrefix = "[" + this.id + "] ";
-		LOG.trace("Set prefix for process logging to: " + logPrefix);
+		LOG.trace(logPrefix + "Set prefix for process logging.");
 
 		// init the process with the backup command
 		psBuilder = psBuilder.redirectErrorStream(true)
 				.command(moodleBackupCommand)
 				.directory(new File(config.getBACKUP_DESTINATION_PATH()));
-		LOG.trace("Intializing processBuilder object with backup command: " + moodleBackupCommand.toString());
+		LOG.trace(logPrefix + "Intializing processBuilder object with backup command: " + moodleBackupCommand.toString());
 
 		try {
+			LOG.trace(logPrefix + "Start process builder.");
 			process = psBuilder.start();
 
-			// get the standard output from the process
+			LOG.trace(logPrefix + "Catch the standard output from the job process.");
 			InputStreamReader inStreamReader = new InputStreamReader(process.getInputStream());
 			BufferedReader buffer = new BufferedReader(inStreamReader);
 
