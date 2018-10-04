@@ -41,11 +41,10 @@ public class DatabaseQueryResult {
 	 */
 	/**
 	 * Constructor connects to the database with setting from DatabaseQuery
-	 * object. The result is stored in a List<DatabaseQueryResultItem>.
+	 * object. The result is stored in a List&lt;DatabaseQueryResultItem&gt;.
 	 *
-	 * @param dbQuery 
+	 * @param dbQuery Database settings for querying the database.
 	 */
-	// TODO: javadoc
 	// TODO: add Logging
 	public DatabaseQueryResult(DatabaseQuery dbQuery) {
 		courses = new ArrayList<>();
@@ -108,7 +107,7 @@ public class DatabaseQueryResult {
 	}
 
 	/**
-	 *
+	 * Filter the course list by white list.
 	 */
 	private void filterWhiteList() {
 		if (whiteListFile != null) {
