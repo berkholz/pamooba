@@ -91,8 +91,8 @@ public class CmdLineOption {
 		this.validateCmdLineOptions_h();
 		this.validateCmdLineOption_d();
 		this.validateCmdLineOption_c();
-		this.validateCmdLineOption_w();
 		this.validateCmdLineOption_b();
+		this.validateCmdLineOption_w();
 		LOG.trace("End of validating command line options.");
 	}
 
@@ -147,19 +147,28 @@ public class CmdLineOption {
 	/**
 	 * Internal method to validate command line option -b.
 	 */
+	// TODO: implement
 	private void validateCmdLineOption_b() {
 		LOG.trace("Validating command line option -b.");
 		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
 		if (cmdLine.hasOption("b")) {
-			LOG.info("Option -b not yet implemented.");
+			String optionValue_b = cmdLine.getOptionValue("b");
+			// check if file exists and is readable
+			if (HelperFunctions.checkFile(optionValue_b)) {
+				LOG.info("Using black list file " + optionValue_b);
+			} else {
+				LOG.error("Black list file " + optionValue_b + " does not exist or is not readable.");
+				System.exit(4);
+			}
 		}
 	}
 
 	/**
 	 * Internal method to validate command line option -w.
 	 */
+	// TODO: implement
 	private void validateCmdLineOption_w() {
-		LOG.trace("Validating command line option -.");
+		LOG.trace("Validating command line option -w.");
 		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
 		if (cmdLine.hasOption("")) {
 			LOG.info("Option -w not yet implemented.");
