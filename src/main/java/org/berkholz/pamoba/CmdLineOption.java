@@ -146,34 +146,46 @@ public class CmdLineOption {
 	}
 
 	/**
-	 * Internal method to validate command line option -b.
+	 * Internal wrapper method to call the validate method for command line
+	 * option -b.
 	 */
-	// TODO: implement
 	private void validateCmdLineOption_b() {
-		LOG.trace("Validating command line option -b.");
-		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
-		if (cmdLine.hasOption("b")) {
-			String optionValue_b = cmdLine.getOptionValue("b");
-			// check if file exists and is readable
-			if (HelperFunctions.checkFile(optionValue_b)) {
-				LOG.info("Using black list file " + optionValue_b);
-			} else {
-				LOG.error("Black list file " + optionValue_b + " does not exist or is not readable.");
-				System.exit(4);
-			}
-		}
+		validateCmdLineOption_lists("b");
 	}
 
 	/**
-	 * Internal method to validate command line option -w.
+	 * Internal wrapper method to call the validate method for command line
+	 * option -w.
 	 */
-	// TODO: implement
 	private void validateCmdLineOption_w() {
-		LOG.trace("Validating command line option -w.");
-		// check if help should be printed. If option -h or no parameter are specified, help is printed. 
-		if (cmdLine.hasOption("")) {
-			LOG.info("Option -w not yet implemented.");
+		validateCmdLineOption_lists("w");
+	}
+
+	/**
+	 * Internal wrapper method to validate both list command line options.
+	 *
+	 * @param listType List type as single String character. "w" for white and
+	 * "b" for black list.
+	 */
+	private void validateCmdLineOption_lists(String listType) {
+		LOG.trace("Validating command line option -" + listType + ".");
+		String listString = null;
+		if (listType == "b") {
+			listString = "black";
+		} else {
+			listString = "white";
 		}
+		if (cmdLine.hasOption(listType)) {
+			String optionValue = cmdLine.getOptionValue(listType);
+			// check if file exists and is readable
+			if (HelperFunctions.checkFile(optionValue)) {
+				LOG.info("Using " + listString + " list file " + optionValue + ".");
+			} else {
+				LOG.error(listString.substring(0, 1).toUpperCase() + listString.substring(1) + "list file " + optionValue + " does not exist or is not readable.");
+				System.exit(4);
+			}
+		}
+		LOG.trace("Finished validating command line option -" + listType + ".");
 	}
 
 	/**
