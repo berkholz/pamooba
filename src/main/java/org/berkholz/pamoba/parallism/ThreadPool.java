@@ -77,7 +77,7 @@ public class ThreadPool {
 	public void submit() {
 		// check if job list is empty
 		if (this.jobList.isEmpty() || this.jobList == null) {
-			LOG.error("List of jobs are empty. Nothing to do. Eciting...");
+			LOG.error("List of jobs are empty. Nothing to do. Exiting...");
 			System.exit(20);
 		} else {
 			// all jobs are submitted 

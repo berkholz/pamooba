@@ -45,18 +45,21 @@ public class DatabaseQueryResult {
 	 *
 	 * @param dbQuery Database settings for querying the database.
 	 */
-	// TODO: add Logging
 	public DatabaseQueryResult(DatabaseQuery dbQuery) {
 		courses = new ArrayList<>();
 
+		LOG.debug("Trying to connect to database.");
 		try (Connection con = DriverManager.getConnection(dbQuery.getUrl(), dbQuery.getUsername(), dbQuery.getPassword())) {
 			Statement stmt = con.createStatement();
+			LOG.trace("Executing SQL query with statement.");
 			ResultSet rs = stmt.executeQuery(dbQuery.getSqlQuery());
 
+			LOG.trace("Adding all query result elements to courses list.");
 			while (rs.next()) {
 				courses.add(new DatabaseQueryResultItem(rs.getLong(1), rs.getString(2), rs.getString(3)));
 			}
 
+			LOG.trace("Closing all database connections.");
 			rs.close();
 			stmt.close();
 		} catch (SQLException e) {
@@ -113,11 +116,18 @@ public class DatabaseQueryResult {
 		if (whiteListFile != null) {
 			LOG.debug("Read lines from white list file.");
 			List<Long> whiteList = HelperFunctions.readStringArrayFromFile(new File(whiteListFile)).stream().map(Long::parseLong).collect(Collectors.toList());
-
 			List<DatabaseQueryResultItem> tmpList = new ArrayList<>();
-//			tmpList.addAll(whiteList);
 
-			// iterate over whitelist and check every item of existence in courses
+			// iteriere über white list
+			whiteList.stream().forEach((whiteListEntry) -> {
+				for (DatabaseQueryResultItem course : courses) {
+					if (course.getId().equals(whiteListEntry)) {
+						LOG.debug(String.format("Mark course (%d;%s;%s) for backup.", course.getId(), course.getShortDescription(), course.getDescription()));
+						tmpList.add(course);
+					}
+				}
+			});
+			courses = tmpList;
 		} else {
 			LOG.debug("No white list file given, skipping.");
 		}
