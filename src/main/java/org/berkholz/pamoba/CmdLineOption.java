@@ -12,7 +12,9 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.berkholz.configurationframework.Configuration;
 import org.berkholz.helperfunctions.HelperFunctions;
 import org.berkholz.pamoba.config.MainConfiguration;
@@ -66,18 +68,17 @@ public class CmdLineOption {
 	 * case of parsing illegal options.
 	 */
 	public void setCmdLineOptions() throws ParseException {
-		// TODO: specify default values
 		LOG.trace("Begin of defining command line options.");
 		cmdOptions.addOption("h", "help", false, "Shows the help.");
-//		cmdOptions.addOption("D", "debuglevel", true, "Specify debug level (error, warn, info, debug, trace).");
-		cmdOptions.addOption("c", "config-file", true, "Specify the UTF-8 formatted configuration file.");
-		cmdOptions.addOption("b", "blacklist-file", true, "Specify the UTF-8 formatted blacklist file. Single course id each line. course ids will be excluded from backup. Blacklist overwrites whitelists.");
-		cmdOptions.addOption("w", "whitelist-file", true, "Specify the UTF-8 formatted whitelist file. Single course id each line. Only these course ids will backed up. Entries in blacklist file overwrites whitelist entries.");
-		cmdOptions.addOption("d", "dump-config-template", true, "A template configuration file is dumped out. No other action is performed, other options will be dismmissed. When no file name is specified the temporary directory of the operating system is used. Default file name is pamoba.conf.xml.");
+		cmdOptions.addOption("D", "debuglevel", true, "Specify the debug level for the main program. Valid levels are: error, warn, info, debug, trace. Default level is info.");
+		cmdOptions.addOption("c", "config-file", true, "Specify the UTF-8 formatted configuration file. If no file is given the pamoba.xml.conf is searched in users home directory. If found it would be used. If not an error is thrown and the program is terminated.");
+		cmdOptions.addOption("b", "blacklist-file", true, "Specify the UTF-8 formatted blacklist file. Single course id each line. course ids will be excluded from backup. Blacklist overwrites whitelists. If no black list file is given the pamoba.blacklist is searched in users home directory. If found it would be used. If not an error is thrown and the program is terminated.");
+		cmdOptions.addOption("w", "whitelist-file", true, "Specify the UTF-8 formatted whitelist file. Single course id each line. Only these course ids will backed up. Entries in blacklist file overwrites whitelist entries. If no white list file is given the pamoba.whitelist is searched in users home directory. If found it would be used. If not an error is thrown and the program is terminated.");
+		cmdOptions.addOption("d", "dump-config-template", true, "A template configuration file is dumped out. No other action is performed, other options will be dismmissed. When no file name is specified the temporary directory of the operating system is used. Default file name is pamoba.templ.conf.xml.");
 		LOG.trace("End of defining command line options.");
 
 		// create a basic parser with above specified commandline options
-		LOG.trace("Creating new BasicParser with options.");
+		LOG.trace("Creating new GnuParser with options.");
 		CommandLineParser parser = new GnuParser();
 
 		LOG.trace("Parsing command line options.");
@@ -85,10 +86,12 @@ public class CmdLineOption {
 	}
 
 	/**
-	 * Validate all command line options and trigger actions.
+	 * Meta method to validate all command line options and trigger actions or
+	 * set program parameters.
 	 */
 	public void validateCmdLineOptions() {
 		LOG.trace("Begin of validating command line options.");
+		this.validateCmdLineOption_D();
 		this.validateCmdLineOptions_h();
 		this.validateCmdLineOption_d();
 		this.validateCmdLineOption_c();
@@ -119,7 +122,7 @@ public class CmdLineOption {
 		LOG.trace("Validating command line option -c.");
 
 		// Option -c and not option -d found
-		if (cmdLine.hasOption("c") && !cmdLine.hasOption("d")) {
+		if (cmdLine.hasOption("c") && !cmdLine.hasOption("d") && !cmdLine.hasOption("h")) {
 			// check if option -c has a value
 			if (cmdLine.getOptionValue("c").isEmpty()) {
 				//search for local pamoba.conf.xml
@@ -141,7 +144,9 @@ public class CmdLineOption {
 				LOG.error("Configuration file (" + cmdLine.getOptionValue("c") + ") does not exist or is not readable. Exiting.");
 			}
 		} else {
-			LOG.debug("No option -c specified on command line.");
+			LOG.debug("No option -c specified on command line. Exiting...");
+			printUsage();
+			System.exit(1);
 		}
 	}
 
@@ -176,13 +181,31 @@ public class CmdLineOption {
 			listString = "white";
 		}
 		if (cmdLine.hasOption(listType)) {
-			String optionValue = cmdLine.getOptionValue(listType);
-			// check if file exists and is readable
-			if (HelperFunctions.checkFile(optionValue)) {
-				LOG.info("Using " + listString + " list file " + optionValue + ".");
+			// if empty search for local black or white list file
+			if (cmdLine.getOptionValue("c").isEmpty()) {
+				//search for local pamoba.conf.xml
+				String localxListFile = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba." + listString + "list";
+				LOG.trace("No " + listString + "file given on command line. Searching for " + listString + "file " + localxListFile + "in user home directory.");
+
+				if (HelperFunctions.checkFile(localxListFile)) {
+					LOG.info("Found local " + listString + " list file (" + localxListFile + ") in user home directory.");
+					this.configurationFilename = localxListFile;
+				} else {
+					LOG.error("Could not find local " + listString + " list file in user home directory. Exiting.");
+					printUsage();
+					System.exit(5);
+				}
+
 			} else {
-				LOG.error(listString.substring(0, 1).toUpperCase() + listString.substring(1) + "list file " + optionValue + " does not exist or is not readable.");
-				System.exit(4);
+				// lis file as param given
+				String optionValue = cmdLine.getOptionValue(listType);
+				// check if file exists and is readable
+				if (HelperFunctions.checkFile(optionValue)) {
+					LOG.info("Using " + listString + " list file " + optionValue + ".");
+				} else {
+					LOG.error(listString.substring(0, 1).toUpperCase() + listString.substring(1) + "list file " + optionValue + " does not exist or is not readable.");
+					System.exit(6);
+				}
 			}
 		}
 		LOG.trace("Finished validating command line option -" + listType + ".");
@@ -210,7 +233,52 @@ public class CmdLineOption {
 			LOG.trace("Saving default settings to template configuration file: " + filename);
 			Configuration.save(new MainConfiguration(), new File(filename));
 			LOG.trace("Exiting.");
-			System.exit(0);
+			System.exit(10);
+		}
+	}
+
+	/**
+	 * Internal method to validate command line option -D. It checks if debug
+	 * command line option is set and if a valid log level is given. If not the
+	 * default level info is set. Because the parsing of the command line option
+	 * is not the first thing done, the log level is turned after some main and
+	 * command line option actions set. If you want to change the debug level
+	 * for the complete program from beginning you have to change the log4j2.xml
+	 * file in the jar file.
+	 *
+	 */
+	private void validateCmdLineOption_D() {
+		LOG.trace("Validating command line option -D.");
+		String optionValue = cmdLine.getOptionValue("D");
+
+		if (cmdLine.hasOption("D")) {
+			if (optionValue.isEmpty()) {
+				Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.INFO);
+				LOG.info("Setting debug level to default: info");
+			} else {
+				switch (optionValue.toLowerCase()) {
+					case "info":
+						Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.INFO);
+						break;
+					case "debug":
+						Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.DEBUG);
+						break;
+					case "error":
+						Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.ERROR);
+						break;
+					case "trace":
+						Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.TRACE);
+						break;
+					case "warn":
+						Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.WARN);
+						break;
+					default:
+						Configurator.setAllLevels(LogManager.getRootLogger().getName(), Level.INFO);
+						break;
+				}
+			}
+		} else {
+			LOG.info("Letting the debug level on files log4j2.xml values.");
 		}
 	}
 
