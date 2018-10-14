@@ -71,6 +71,10 @@ public class DatabaseQuery {
 		password = dbConSets.getDATABASE_PASSWORD();
 		port = dbConSets.getDATABASE_PORT();
 		dbSSLenabled = dbConSets.getDATABASE_SSL_ENABLED();
+
+		// check invalid characters in sql query components
+		this.validateQuery();
+
 		// create SQL statement 
 		this.initializeQuery();
 
@@ -82,7 +86,6 @@ public class DatabaseQuery {
 	/**
 	 * Create the SQL query to get all courses and their informations.
 	 */
-	// TODO: check for sqlinjection
 	private void initializeQuery() {
 		String sqlstatement = "SELECT " + dbTableIdColumn + "," + dbTableShortDescriptionColumn + "," + dbTableDescriptionColumn + " FROM " + dbname + "." + dbTable;
 		if (dbSelectCondition == null || dbSelectCondition.isEmpty()) {
@@ -94,14 +97,34 @@ public class DatabaseQuery {
 		sqlQuery = sqlstatement;
 	}
 
-	// TODO: implement
 	/**
 	 * Validate the SQL query for reducing SQL injections.
 	 *
 	 * @return Return true if SQL query is valid, otherwise false.
 	 */
-	public Boolean validateQuery() {
+	private Boolean validateQuery() {
+		LOG.trace("Validating the table name.");
+		this.validateQueryItem(dbTable);
+		LOG.trace("Validating the name of the id column of the table.");
+		this.validateQueryItem(dbTableIdColumn);
+		LOG.trace("Validating the name of the short description column of the table.");
+		this.validateQueryItem(dbTableShortDescriptionColumn);
+		LOG.trace("Validating the name of the description column of the table.");
+		this.validateQueryItem(dbTableDescriptionColumn);
+		LOG.trace("Validating the database name.");
+		this.validateQueryItem(dbname);
 		return true;
+	}
+
+	/**
+	 * Check if the given string matches the regular expression. If it matches
+	 * the string should be valid.
+	 *
+	 * @return Return true if given string matches the valid regular expression.
+	 */
+	private boolean validateQueryItem(String queryPart) {
+		// for valid characters, see https://www.postgresql.org/docs/9.2/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
+		return queryPart.matches("[A-Za-z][A-Za-z0-9_-]+[A-Za-z]");
 	}
 
 	/**
