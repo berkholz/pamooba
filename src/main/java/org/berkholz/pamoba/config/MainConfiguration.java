@@ -85,8 +85,8 @@ public class MainConfiguration {
 
 		this.MEASUREMENT_UNIT = 'M';
 
-		// TODO: calculate CPUs and set it in addiction to the number of CPUs. Now we just take 1
-		this.MAXIMUM_RUNNING_BACKUP_JOBS = 1;
+		// calculate CPUs and set it in addiction to the number of CPUs. 
+		this.MAXIMUM_RUNNING_BACKUP_JOBS = Runtime.getRuntime().availableProcessors() <= 2 ? 1 : Runtime.getRuntime().availableProcessors() - 1;
 
 		// timeout in minutes for awaiting shutdown of the executor service
 		this.EXECUTOR_SHUTDOWN_TIMEOUT = 5L;
