@@ -106,5 +106,6 @@ public class ThreadPool {
 		} catch (InterruptedException ex) {
 			LOG.error(ex.getLocalizedMessage());
 		}
+		LOG.trace("Executor is shut down.");
 	}
 }
