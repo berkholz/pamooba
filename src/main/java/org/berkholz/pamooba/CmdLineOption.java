@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba;
+package org.berkholz.pamooba;
 
 import java.io.File;
 import org.apache.commons.cli.GnuParser;
@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.berkholz.configurationframework.Configuration;
 import org.berkholz.helperfunctions.HelperFunctions;
-import org.berkholz.pamoba.config.MainConfiguration;
+import org.berkholz.pamooba.config.MainConfiguration;
 
 /**
  * Class for defining the command line options.

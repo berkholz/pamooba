@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba.config;
+package org.berkholz.pamooba.config;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import org.berkholz.helperfunctions.HelperFunctions;
  *
  * @author Marcel Berkholz
  */
-@XmlRootElement(name = "PaMoBaConfiguration")
+@XmlRootElement(name = "PaMooBaConfiguration")
 public class MainConfiguration {
 
 	/**

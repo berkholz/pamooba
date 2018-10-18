@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba.dbms;
+package org.berkholz.pamooba.dbms;
 
 /**
  * Class for representing the result of queries against the moodle database. It

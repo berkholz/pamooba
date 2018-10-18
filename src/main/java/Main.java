@@ -6,14 +6,14 @@ import java.util.List;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.berkholz.configurationframework.Configuration;
-import org.berkholz.pamoba.CmdLineOption;
-import org.berkholz.pamoba.Measure;
-import org.berkholz.pamoba.config.MainConfiguration;
-import org.berkholz.pamoba.dbms.DatabaseQuery;
-import org.berkholz.pamoba.dbms.DatabaseQueryResult;
-import org.berkholz.pamoba.dbms.DatabaseQueryResultItem;
-import org.berkholz.pamoba.parallism.Job;
-import org.berkholz.pamoba.parallism.ThreadPool;
+import org.berkholz.pamooba.CmdLineOption;
+import org.berkholz.pamooba.Measure;
+import org.berkholz.pamooba.config.MainConfiguration;
+import org.berkholz.pamooba.dbms.DatabaseQuery;
+import org.berkholz.pamooba.dbms.DatabaseQueryResult;
+import org.berkholz.pamooba.dbms.DatabaseQueryResultItem;
+import org.berkholz.pamooba.parallism.Job;
+import org.berkholz.pamooba.parallism.ThreadPool;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

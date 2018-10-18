@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba.dbms;
+package org.berkholz.pamooba.dbms;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.logging.log4j.LogManager;
-import org.berkholz.pamoba.config.DatabaseConnectionConfiguration;
-import org.berkholz.pamoba.config.DatabaseSelectConfiguration;
-import org.berkholz.pamoba.config.MainConfiguration;
+import org.berkholz.pamooba.config.DatabaseConnectionConfiguration;
+import org.berkholz.pamooba.config.DatabaseSelectConfiguration;
+import org.berkholz.pamooba.config.MainConfiguration;
 
 /**
+ * Class for initializing the connection url for connecting to the database. The
+ * database driver is loaded in this class.
  *
  * @author Marcel Berkholz
  */

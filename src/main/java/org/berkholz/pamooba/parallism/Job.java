@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba.parallism;
+package org.berkholz.pamooba.parallism;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,9 +12,9 @@ import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
-import org.berkholz.pamoba.BackupCommand;
-import org.berkholz.pamoba.Measure;
-import org.berkholz.pamoba.config.MainConfiguration;
+import org.berkholz.pamooba.BackupCommand;
+import org.berkholz.pamooba.Measure;
+import org.berkholz.pamooba.config.MainConfiguration;
 
 /**
  * This class represents a single job running on the command line. It is created

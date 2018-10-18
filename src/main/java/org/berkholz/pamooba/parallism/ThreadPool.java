@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba.parallism;
+package org.berkholz.pamooba.parallism;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.berkholz.pamoba.config.MainConfiguration;
+import org.berkholz.pamooba.config.MainConfiguration;
 
 /**
  * Class for initializing a fixed thread pool for executing the moodle backup

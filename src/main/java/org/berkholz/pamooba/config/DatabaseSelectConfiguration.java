@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba.config;
+package org.berkholz.pamooba.config;
 
 import javax.xml.bind.annotation.XmlElement;
 

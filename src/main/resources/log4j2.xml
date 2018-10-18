@@ -12,10 +12,10 @@ and open the template in the editor.
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="org.berkholz.pamoba" level="info" additivity="false">
+        <Logger name="org.berkholz.pamooba" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Logger name="org.berkholz.pamoba.CmdLineOption" level="warn" additivity="false">
+        <Logger name="org.berkholz.pamooba.CmdLineOption" level="warn" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
         <Logger name="org.berkholz.configuration" level="error" additivity="false">

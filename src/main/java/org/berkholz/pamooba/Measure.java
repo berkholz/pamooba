@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba;
+package org.berkholz.pamooba;
 
 import java.text.DecimalFormat;
 import org.apache.logging.log4j.LogManager;

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.berkholz.pamoba;
+package org.berkholz.pamooba;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.berkholz.pamoba.config.MainConfiguration;
+import org.berkholz.pamooba.config.MainConfiguration;
 
 /**
  * Class for generating the moodle backup command.
