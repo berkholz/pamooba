@@ -45,6 +45,11 @@ public class Main {
 	// Logger for this class. See, https://logging.apache.org/log4j/2.x/
 	private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(Main.class.getName());
 
+	/**
+	 * Starting point for PaMooBa.
+	 * @param args Commandline arguments to control the program.
+	 * @throws SQLException
+	 */
 	public static void main(String[] args) throws SQLException {
 
 		// MEASURE START
