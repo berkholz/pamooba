@@ -103,8 +103,8 @@ public class MainConfiguration {
 		this.MOODLE_BACKUP_CLI_COMMAND = "/var/www/moodle/admin/cli/backup.php";
 		this.MOODLE_BACKUP_CLI_COMMAND_PARAMETERS = new ArrayList();
 
-		this.BLACK_LIST_FILE = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.blacklist";
-		this.WHITE_LIST_FILE = HelperFunctions.getUserHomeDirectory() + File.separator + "pamoba.whitelist";
+		this.BLACK_LIST_FILE = HelperFunctions.getUserHomeDirectory() + File.separator + "pamooba.blacklist";
+		this.WHITE_LIST_FILE = HelperFunctions.getUserHomeDirectory() + File.separator + "pamooba.whitelist";
 	}
 
 	/**
