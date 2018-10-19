@@ -89,12 +89,20 @@ public class DatabaseQuery {
 	 * Create the SQL query to get all courses and their informations.
 	 */
 	private void initializeQuery() {
-		String sqlstatement = "SELECT " + dbTableIdColumn + "," + dbTableShortDescriptionColumn + "," + dbTableDescriptionColumn + " FROM " + dbname + "." + dbTable;
-		if (dbSelectCondition == null || dbSelectCondition.isEmpty()) {
-			sqlstatement += ";";
-		} else {
-			sqlstatement += " WHERE " + dbSelectCondition + ";";
+		String dbTablePrefix = "";
+		// workaround for mysql and postgresql
+		if (!"postgresql".equals(this.dbtype)) {
+			dbTablePrefix = " " + dbname + ".";
 		}
+
+		String sqlstatement = "SELECT " + dbTableIdColumn + "," + dbTableShortDescriptionColumn + "," + dbTableDescriptionColumn + " FROM " + dbTablePrefix + dbTable;
+
+		if (dbSelectCondition == null || dbSelectCondition.isEmpty()) {
+			LOG.trace("No select condition used and given.");
+		} else {
+			sqlstatement += " WHERE " + dbSelectCondition;
+		}
+		sqlstatement += ";";
 		LOG.debug("Using SQL statement: " + sqlstatement);
 		sqlQuery = sqlstatement;
 	}
