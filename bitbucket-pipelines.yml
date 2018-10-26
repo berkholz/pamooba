@@ -8,6 +8,12 @@ image: maven:3.3.9
 pipelines:
   default:
     - step:
+        script:
+          - wget -q https://github.com/berkholz/Helperfunctions/releases/download/v0.1/Helperfunctions-0.1.jar
+    - step:
+        script:
+          - wget -q https://github.com/berkholz/ConfigurationFrameWork/releases/download/v0.1/configurationframework-0.1-jar-with-dependencies.jar
+    - step:
         caches:
           - maven
         script: # Modify the commands below to build your repository.
