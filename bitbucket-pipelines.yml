@@ -20,7 +20,7 @@ pipelines:
           - wget https://github.com/berkholz/ConfigurationFrameWork/releases/download/v0.1/configurationframework-0.1-jar-with-dependencies.jar
           - pwd
           - ls -la
-          - mvn install:install-file -Dfile=configurationframework-0.1.jar -DgroupId=org.berkholz -DartifactId=configurationframework -Dversion=0.1 -Dpackaging=jar
+          - mvn install:install-file -Dfile=configurationframework-0.1-jar-with-dependencies.jar -DgroupId=org.berkholz -DartifactId=configurationframework -Dversion=0.1 -Dpackaging=jar
     - step:
         name: verify
         caches:
