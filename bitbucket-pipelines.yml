@@ -13,20 +13,14 @@ pipelines:
           - wget https://github.com/berkholz/Helperfunctions/releases/download/v0.1/Helperfunctions-0.1.jar
           - pwd 
           - ls -la 
-          - mvn install:install-file -Dfile=./Helperfunctions-0.1.jar -DgroupId=org.berkholz -DartifactIdHelperfunctions -Dversion=0.1
+          - mvn install:install-file -Dfile=./Helperfunctions-0.1.jar -DgroupId=org.berkholz -DartifactId=Helperfunctions -Dversion=0.1
     - step:
-        script:
-          - ls -la $( pwd)
-          - mvn install:install-file -Dfile=./Helperfunctions-0.1.jar -DgroupId=org.berkholz -DartifactIdHelperfunctions -Dversion=0.1
-    - step:
+        name: install ConfigurationFrameWork JAR file
         script:
           - wget https://github.com/berkholz/ConfigurationFrameWork/releases/download/v0.1/configurationframework-0.1-jar-with-dependencies.jar
           - pwd
           - ls -la
-    - step:
-        name: install Configuration JAR file
-        script:  
-          - mvn install:install-file -Dfile=configurationframework-0.1.jar -DgroupId=org.berkholz -DartifactIdconfigurationframework -Dversion=0.1
+          - mvn install:install-file -Dfile=configurationframework-0.1.jar -DgroupId=org.berkholz -DartifactId=configurationframework -Dversion=0.1
     - step:
         caches:
           - maven
