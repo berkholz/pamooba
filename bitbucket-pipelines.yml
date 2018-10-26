@@ -8,10 +8,12 @@ image: maven:3.3.9
 pipelines:
   default:
     - step:
+        name: install Helperfunctions 
         script:
           - wget https://github.com/berkholz/Helperfunctions/releases/download/v0.1/Helperfunctions-0.1.jar
           - pwd 
           - ls -la 
+          - mvn install:install-file -Dfile=./Helperfunctions-0.1.jar -DgroupId=org.berkholz -DartifactIdHelperfunctions -Dversion=0.1
     - step:
         script:
           - ls -la $( pwd)
