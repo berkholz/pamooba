@@ -10,9 +10,11 @@ pipelines:
     - step:
         script:
           - wget -q https://github.com/berkholz/Helperfunctions/releases/download/v0.1/Helperfunctions-0.1.jar
+          - mvn install:install-file -Dfile='Helperfunctions-0.1.jar' -DgroupId=org.berkholz -DartifactIdHelperfunctions -Dversion=0.1
     - step:
         script:
           - wget -q https://github.com/berkholz/ConfigurationFrameWork/releases/download/v0.1/configurationframework-0.1-jar-with-dependencies.jar
+          - mvn install:install-file -Dfile='configurationframework-0.1.jar' -DgroupId=org.berkholz -DartifactIdconfigurationframework -Dversion=0.1
     - step:
         caches:
           - maven
