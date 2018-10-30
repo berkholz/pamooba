@@ -17,6 +17,6 @@ pipelines:
           - mvn install:install-file -Dfile=configurationframework-0.1-jar-with-dependencies.jar -DgroupId=org.berkholz -DartifactId=configurationframework -Dversion=0.1 -Dpackaging=jar
           - mvn package  
           - mvn -B clean install
-          - curl -X POST -v --user "${BB_AUTH_STRING}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"target/PaMooBa-0.1-jar-with-dependencies.jar"
+          - curl -X POST -v -u "${USERNAME}:${PASSWORD}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"target/PaMooBa-0.1-jar-with-dependencies.jar"
 
 
