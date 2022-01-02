@@ -4,13 +4,14 @@ Moodles backup is organized as php-script called by a cronjob. This script runs 
 
 The backup script can be run for a specific course id to only backup this course. This mechanism is used by pamooba to run the script for each course simultaniously. To avoid overloading an active queue is used to execute only a defined number of parallel backups.
 
-== How to setup? ==
+# How to setup?
 
 
-== How to use? ==
+# How to use?
 
 
-== How to debug? ==
+# How to debug?
 
 
-== Hw to build? ==
+# How to build?
+For build instructions see [BUILD.md](BUILD.md)
