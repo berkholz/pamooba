@@ -71,10 +71,10 @@ public class CmdLineOption {
 		LOG.trace("Begin of defining command line options.");
 		cmdOptions.addOption("h", "help", false, "Shows the help.");
 		cmdOptions.addOption("D", "debuglevel", true, "Specify the debug level for the main program. Valid levels are: error, warn, info, debug, trace. Default level is info.");
-		cmdOptions.addOption("c", "config-file", true, "Specify the UTF-8 formatted configuration file. If no file is given the pamooba.xml.conf is searched in users home directory. If found it would be used. If not an error is thrown and the program is terminated.");
-		cmdOptions.addOption("b", "blacklist-file", true, "Specify the UTF-8 formatted blacklist file. Single course id each line. course ids will be excluded from backup. Blacklist overwrites whitelists. If no black list file is given the pamooba.blacklist is searched in users home directory. If found it would be used. If not an error is thrown and the program is terminated.");
-		cmdOptions.addOption("w", "whitelist-file", true, "Specify the UTF-8 formatted whitelist file. Single course id each line. Only these course ids will backed up. Entries in blacklist file overwrites whitelist entries. If no white list file is given the pamooba.whitelist is searched in users home directory. If found it would be used. If not an error is thrown and the program is terminated.");
-		cmdOptions.addOption("d", "dump-config-template", true, "A template configuration file is dumped out. No other action is performed, other options will be dismmissed. When empty file name is specified (e.g. \"\") the temporary directory of the operating system is used. Default file name is pamooba.templ.conf.xml.");
+		cmdOptions.addOption("c", "config-file", true, "Specify the UTF-8 formatted configuration file. If no file name is given the pamooba.xml.conf is searched in users home directory. If found it would be used otherwise an error is thrown and the program is terminated.");
+		cmdOptions.addOption("b", "blacklist-file", true, "Specify the UTF-8 formatted blacklist file. Single course id each line. Course ids will be excluded from backup. Blacklist overwrites whitelists. If no black list file name is given the pamooba.blacklist is searched in users home directory. If found it would be used otherwise an error is thrown and the program is terminated.");
+		cmdOptions.addOption("w", "whitelist-file", true, "Specify the UTF-8 formatted whitelist file. Single course id each line. Only these course ids will backed up. Entries in blacklist file overwrites whitelist entries. If no white list file name is given the pamooba.whitelist is searched in users home directory. If found it would be used otherwise an error is thrown and the program is terminated.");
+		cmdOptions.addOption("t", "dump-config-template", true, "Create a template configuration file and save it to given file name. No other action is performed, other options will be dismmissed. When an empty file name is specified (e.g. \"\") the default file name pamooba.templ.conf.xml is created in the temporary directory of the operating system.");
 		LOG.trace("End of defining command line options.");
 
 		// create a basic parser with above specified commandline options
@@ -93,7 +93,7 @@ public class CmdLineOption {
 		LOG.trace("Begin of validating command line options.");
 		this.validateCmdLineOption_D();
 		this.validateCmdLineOptions_h();
-		this.validateCmdLineOption_d();
+		this.validateCmdLineOption_t();
 		this.validateCmdLineOption_c();
 		this.validateCmdLineOption_b();
 		this.validateCmdLineOption_w();
@@ -214,16 +214,16 @@ public class CmdLineOption {
 	/**
 	 * Internal method to validate command line option -d.
 	 */
-	private void validateCmdLineOption_d() {
+	private void validateCmdLineOption_t() {
 		String filename;
 
-		LOG.trace("Validating command line option -d.");
+		LOG.trace("Validating command line option -t.");
 		// dump out template config file
-		if (cmdLine.hasOption("d")) {
+		if (cmdLine.hasOption("t")) {
 
 			// file must exist and has to be readable
-			if (HelperFunctions.checkFile(cmdLine.getOptionValue("d"))) {
-				filename = cmdLine.getOptionValue("d");
+			if (HelperFunctions.checkFile(cmdLine.getOptionValue("t"))) {
+				filename = cmdLine.getOptionValue("t");
 			} else {
 				LOG.trace("Set default filename in user home dir.");
 				filename = HelperFunctions.getUserHomeDirectory() + File.separator + "pamooba.templ.conf.xml";
@@ -288,7 +288,7 @@ public class CmdLineOption {
 	private void printUsage() {
 		HelpFormatter formatter = new HelpFormatter();
 		System.out.println("PaMooBa - PArallized MOOdle BAckup\n");
-		formatter.printHelp("pamooba -h | -c <CONFIGURATION_FILE> | -d [ -D <DEBUGLEVEL> ] [ -b <BLACK_LIST_FILE> ] [ -w <WHITE_LIST_FILE> ]", cmdOptions);
+		formatter.printHelp("pamooba -h | -c <CONFIGURATION_FILE> | -t [ -D <DEBUGLEVEL> ] [ -b <BLACK_LIST_FILE> ] [ -w <WHITE_LIST_FILE> ]", cmdOptions);
 	}
 
 	/**
