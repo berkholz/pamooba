@@ -113,17 +113,18 @@ public class DatabaseQuery {
 	 * @return Return true if SQL query is valid, otherwise false.
 	 */
 	private Boolean validateQuery() {
-		LOG.trace("Validating the table name.");
-		this.validateQueryItem(dbTable);
-		LOG.trace("Validating the name of the id column of the table.");
-		this.validateQueryItem(dbTableIdColumn);
-		LOG.trace("Validating the name of the short description column of the table.");
-		this.validateQueryItem(dbTableShortDescriptionColumn);
-		LOG.trace("Validating the name of the description column of the table.");
-		this.validateQueryItem(dbTableDescriptionColumn);
-		LOG.trace("Validating the database name.");
-		this.validateQueryItem(dbname);
-		return true;
+            Boolean result = true;
+            LOG.trace("Validating the table name.");
+            result = result && this.validateQueryItem(dbTable);
+            LOG.trace("Validating the name of the id column of the table.");
+            result = result && this.validateQueryItem(dbTableIdColumn);
+            LOG.trace("Validating the name of the short description column of the table.");
+            result = result && this.validateQueryItem(dbTableShortDescriptionColumn);
+            LOG.trace("Validating the name of the description column of the table.");
+            result = result && this.validateQueryItem(dbTableDescriptionColumn);
+            LOG.trace("Validating the database name.");
+            result = result && this.validateQueryItem(dbname);
+            return result;
 	}
 
 	/**
