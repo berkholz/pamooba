@@ -1,151 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.berkholz</groupId>
-	<artifactId>PaMooBa</artifactId>
-	<version>0.1</version>
-	<packaging>jar</packaging>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<log4j2.version>2.17.0</log4j2.version>
-	</properties>
-	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-javadoc-plugin</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-		<!-- LOG4j 2.x -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>${log4j2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j2.version}</version>
-		</dependency>
-		<!-- Command line option parsing -->
-		<dependency>
-			<groupId>commons-cli</groupId>
-			<artifactId>commons-cli</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<!-- Postgresql 9.1 CONNECTOR -->
-		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.1-901-1.jdbc4</version>
-		</dependency>
-		<!-- MYSQL CONNECTOR -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.16</version>
-		</dependency>
-		<!-- HELPERFUNCTIONS FROM OTHER MAVEN PROJECTS -->
-		<dependency>
-			<groupId>org.berkholz</groupId>
-			<artifactId>Helperfunctions</artifactId>
-			<version>0.1</version>
-			<type>jar</type>
-		</dependency>
-		<!-- CONFIGURATIONFRAMEWORK FROM OTHER MAVEN PROJECTS -->
-		<dependency>
-			<groupId>org.berkholz</groupId>
-			<artifactId>configurationframework</artifactId>
-			<version>0.1</version>
-			<type>jar</type>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.0</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>Main</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
-				<configuration>
-					<reportOutputDirectory>${project.reporting.outputDirectory}/doc</reportOutputDirectory>
-					<destDir>doc</destDir>
-				</configuration>
-			</plugin>
-			<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
-			</plugin>
-			<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.2</version>
-			</plugin>
-			<plugin>
-				<!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>java</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<mainClass>Main</mainClass>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.1.0</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>Main</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- bind to the packaging phase -->
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.berkholz</groupId>
+    <artifactId>PaMooBa</artifactId>
+    <version>0.1.1</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <log4j2.version>2.17.1</log4j2.version>
+    </properties>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <!-- Postgresql 9.1 CONNECTOR -->
+        <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+        <!-- MYSQL CONNECTOR -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
+        <!-- CONFIGURATIONFRAMEWORK FROM OTHER MAVEN PROJECTS -->
+        <!-- HELPERFUNCTIONS FROM OTHER MAVEN PROJECTS -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Helperfunctions</artifactId>
+            <version>0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>configurationframework</artifactId>
+            <version>0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>2.3.3</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <reportOutputDirectory>${project.reporting.outputDirectory}/doc</reportOutputDirectory>
+                    <destDir>doc</destDir>
+                </configuration>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+            <plugin>
+                <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>Main</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     <name>PaMooBa</name>
 </project>
