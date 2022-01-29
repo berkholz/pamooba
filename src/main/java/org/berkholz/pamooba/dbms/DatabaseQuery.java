@@ -75,7 +75,11 @@ public class DatabaseQuery {
 		dbSSLenabled = dbConSets.getDATABASE_SSL_ENABLED();
 
 		// check invalid characters in sql query components
-		this.validateQuery();
+		if (! this.validateQuery()){
+                    LOG.debug("Bad SQL settings in configuration file, please check your configuration. Exiting...");
+                    System.err.println("Bad SQL settings in configuration file, please check your configuration. Exiting...");
+                    System.exit(1);
+                }
 
 		// create SQL statement 
 		this.initializeQuery();
