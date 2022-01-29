@@ -212,16 +212,17 @@ public class CmdLineOption {
 	}
 
 	/**
-	 * Internal method to validate command line option -d.
+	 * Internal method to validate command line option -t.
 	 */
 	private void validateCmdLineOption_t() {
 		String filename;
 
 		LOG.trace("Validating command line option -t.");
-		// dump out template config file
+		// command line option to dump out template config file
 		if (cmdLine.hasOption("t")) {
 
 			// file must exist and has to be readable
+                        // TODO: when file not exists it should be created, only if no vale is given default value should be set 
 			if (HelperFunctions.checkFile(cmdLine.getOptionValue("t"))) {
 				filename = cmdLine.getOptionValue("t");
 			} else {
@@ -231,10 +232,13 @@ public class CmdLineOption {
 
 			// save config with default values  and exit
 			LOG.trace("Saving default settings to template configuration file: " + filename);
-			Configuration.save(new MainConfiguration(), new File(filename));
-			LOG.trace("Exiting.");
-			System.exit(10);
-		}
+                        Configuration.save( new MainConfiguration(), new File(filename), true);
+
+        		LOG.trace("Exiting.");
+			System.exit(0);
+		} else {
+                    LOG.trace("Now command line options -t given.");
+                }
 	}
 
 	/**
