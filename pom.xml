@@ -49,22 +49,30 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.16</version>
         </dependency>
-        <!-- CONFIGURATIONFRAMEWORK FROM OTHER MAVEN PROJECTS -->
-        <!-- HELPERFUNCTIONS FROM OTHER MAVEN PROJECTS -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Helperfunctions</artifactId>
-            <version>0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>configurationframework</artifactId>
-            <version>0.2</version>
-        </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>2.3.3</version>
+            <version>3.0.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>3.0.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!-- HELPERFUNCTIONS FROM OTHER MAVEN PROJECT -->
+            <groupId>org.berkholz</groupId>
+            <artifactId>Helperfunctions</artifactId>
+            <version>0.2</version>
+            <type>jar</type>
+        </dependency>
+        <!-- CONFIGURATIONFRAMEWORK FROM OTHER MAVEN PROJECT -->
+        <dependency>
+            <groupId>org.berkholz</groupId>
+            <artifactId>configurationframework</artifactId>
+            <version>0.2</version>
             <type>jar</type>
         </dependency>
     </dependencies>
