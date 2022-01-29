@@ -5,7 +5,7 @@
  */
 package org.berkholz.pamooba.config;
 
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElement;
 
 /**
  * Class for representing the database connection settings. It is part of the
