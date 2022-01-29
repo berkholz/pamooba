@@ -100,8 +100,9 @@ public class Main {
 		for (Iterator iterator = courses.iterator(); iterator.hasNext();) {
 			DatabaseQueryResultItem next = (DatabaseQueryResultItem) iterator.next();
 			LOG.debug(next.getId() + ":" + next.getShortDescription() + ":" + next.getDescription());
-			// add new Job with id an dmainconfig to fixedThreadPool
-			LOG.trace("Add new Job with id " + next.getId() + "an dmainconfig to fixedThreadPool.");
+			// add new Job with id and main config to fixedThreadPool
+			LOG.trace("Add new Job with id " + next.getId() + "and main "
+                                + "config to fixedThreadPool.");
 			ftp.addJob(new Job(next.getId(), mainConfig));
 		}
 
