@@ -19,8 +19,8 @@ To run pamooba we need an java runtime environment. So, we have to install it:
     apt install openjdk-11-jre
 
     # fedora/cent os
-    dnf install 
-    yum install 
+    dnf install java-11-openjdk
+    yum install java-11-openjdk
 
 Now, we have to download the pamooba release:
 
