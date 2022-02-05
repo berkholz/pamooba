@@ -12,23 +12,26 @@ First we create a directory for pamooba, we take as base directory /opt
 
     mkdir -p /opt/pamooba/
 
-To run pamooba we need an java runtime environment. So, we have to install it:
-   # debian
-   apt install openjdk-11-jre
 
-   # fedora/cent os
-   dnf install 
-   yum install 
+To run pamooba we need an java runtime environment. So, we have to install it:
+
+    # debian
+    apt install openjdk-11-jre
+
+    # fedora/cent os
+    dnf install 
+    yum install 
 
 Now, we have to download the pamooba release:
-   cd /opt/pamooba
-   curl https://github.com/berkholz/pamooba/releases/download/v0.1.1/PaMooBa-0.1.1-jar-with-dependencies.jar
+
+    cd /opt/pamooba
+    curl https://github.com/berkholz/pamooba/releases/download/v0.1.1/PaMooBa-0.1.1-jar-with-dependencies.jar
+
 
 # How to setup?
+Create a template configuration file and edit it:
 
-Create a template configuration file and rename it:
-   java -jar /opt/pamooba/PaMooBa-0.1.1-jar-with-dependencies.jar -t /opt/pamooba/pamooba.templ.conf.xml
-   mv /opt/pamooba/pamooba.templ.conf.xml /opt/pamooba/pamooba.conf.xml
+    java -jar /opt/pamooba/PaMooBa-0.1.1-jar-with-dependencies.jar -t /opt/pamooba/pamooba.conf.xml
 
 Edit configuration file to meet your server setup.
 The following table list the options and a short explanation:
@@ -56,18 +59,21 @@ The following table list the options and a short explanation:
 | BLACK_LIST_FILE | | /tmp/pamooba.blacklist.xml | <PATH> |
 | WHITE_LIST_FILE | | /tmp/pamooba.whitelist.xml | <PATH> |
 
+    
 # How to use?
 
 You have two choices: manual or automatic execution via cronjob.
 
-## manual execution 
+### manual execution 
 
    java -jar /opt/pamooba/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/pamooba.conf.xml
 
-## cronjob execution, execute pamooba every day at 2 am and save output to /opt/pamooba/pamooba.$(date +%Y%m%d).log
-   
-   0 2 0 0 0 /usr/bin/java -jar /opt/pamooba/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/pamooba.conf.xml &>> /opt/pamooba/pamooba.$(date +%Y%m%d).log
+### cronjob execution
+    
+    # execute pamooba every day at 2 am and save output to /opt/pamooba/pamooba.$(date +%Y%m%d).log
+    0 2 0 0 0 /usr/bin/java -jar /opt/pamooba/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/pamooba.conf.xml &>> /opt/pamooba/pamooba.$(date +%Y%m%d).log
 
+    
 # How to debug?
 For debugging purposes you can call pamooba with command line option -D. 
 
@@ -79,7 +85,8 @@ Possible command line option values are:
  * trace
 
 An example call is: 
-   java -jar /opt/pamooba/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/pamooba.conf.xml -D trace
+    
+    java -jar /opt/pamooba/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/pamooba.conf.xml -D trace
 
 
 # How to build?
