@@ -32,7 +32,6 @@ import org.berkholz.pamooba.parallism.ThreadPool;
  * <li> 4: No valid black list file given.</li>
  * <li> 5: No local black or white list file found.</li>
  * <li> 6: Black or white list file not found or not readable.</li>
- * <li> 10: Dummy configuration file saved to file.</li>
  * <li>20 : No jobs where added to internal List. </li>
  * <li></li>
  * </ul>
