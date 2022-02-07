@@ -29,7 +29,7 @@ Now, we have to download the pamooba release:
 
 
 # How to setup?
-We create a directory for the pamooba confugration files and a template configuration file:
+We create a directory for the pamooba configration file and a template configuration file:
 
     mkdir -p /opt/pamooba/conf/
     java -jar /opt/pamooba/bin/PaMooBa-0.1.2-jar-with-dependencies.jar -t /opt/pamooba/conf/pamooba.conf.xml
