@@ -67,13 +67,14 @@ You have two choices: manual or automatic execution via cronjob.
 
 ### manual execution 
 
-   java -jar /opt/pamooba/bin/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/conf/pamooba.conf.xml
+    java -jar /opt/pamooba/bin/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/conf/pamooba.conf.xml
 
 ### cronjob execution
     
     # execute pamooba every day at 2 am and save output to /opt/pamooba/pamooba.$(date +%Y%m%d).log
     0 2 0 0 0 /usr/bin/java -jar /opt/pamooba/bin/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/conf/pamooba.conf.xml &>> /opt/pamooba/log/pamooba.$(date +%Y%m%d).log
 
+    
 > Note: You have to create the log directory first, when adding the cronjob.
 
 
@@ -87,8 +88,10 @@ Possible command line option values are:
  * debug
  * trace
 
+    
 > Note: For more infos about log levels, see https://logging.apache.org/log4j/2.x/manual/customloglevels.html.
 
+    
 An example call is: 
     
     java -jar /opt/pamooba/bin/PaMooBa-0.1.1-jar-with-dependencies.jar -c /opt/pamooba/conf/pamooba.conf.xml -D trace
