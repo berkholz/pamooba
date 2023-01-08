@@ -3,20 +3,20 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.berkholz</groupId>
     <artifactId>PaMooBa</artifactId>
-    <version>0.1.4</version>
+    <version>0.1.5</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <log4j2.version>2.17.1</log4j2.version>
+        <log4j2.version>2.19.0</log4j2.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.2.0</version>
+            <version>3.4.1</version>
         </dependency>
         <dependency>
             <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
@@ -40,32 +40,27 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.3.3</version>
+            <version>42.5.1</version>
         </dependency>
         <!-- MYSQL CONNECTOR -->
+        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.31</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>3.0.1</version>
             <type>jar</type>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>3.0.0</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- HELPERFUNCTIONS FROM OTHER MAVEN PROJECT -->
-        <dependency>
-            <groupId>org.berkholz</groupId>
-            <artifactId>Helperfunctions</artifactId>
-            <version>0.2</version>
-            <type>jar</type>
+            <version>4.0.1</version>
         </dependency>
         <!-- CONFIGURATIONFRAMEWORK FROM OTHER MAVEN PROJECT -->
         <dependency>
@@ -74,21 +69,29 @@
             <version>0.2</version>
             <type>jar</type>
         </dependency>
+        <!-- HELPERFUNCTIONS FROM OTHER MAVEN PROJECT -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Helperfunctions</artifactId>
+            <version>0.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -98,31 +101,32 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.4.1</version>
                 <configuration>
                     <reportOutputDirectory>${project.reporting.outputDirectory}/doc</reportOutputDirectory>
                     <destDir>doc</destDir>
                 </configuration>
             </plugin>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
             <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.1</version>
             </plugin>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
             <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
+                <version>3.0.0</version>
             </plugin>
             <plugin>
                 <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -135,8 +139,9 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.2</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
