@@ -25,7 +25,7 @@ To run pamooba we need an java runtime environment. So, we have to install it:
 Now, we have to download the pamooba release:
 
     cd /opt/pamooba/bin
-    curl -L -O https://github.com/berkholz/pamooba/releases/download/v0.1.3/PaMooBa-0.1.3-jar-with-dependencies.jar
+    curl -L -O https://github.com/berkholz/pamooba/releases/download/v0.1.5/PaMooBa-0.1.5-jar-with-dependencies.jar
 
 
 # How to setup?
@@ -34,7 +34,7 @@ We create a directory for the pamooba configuration file and a template configur
     # create directory for the configuration file
     mkdir -p /opt/pamooba/etc/
     # generate template configuration file
-    java -jar /opt/pamooba/bin/PaMooBa-0.1.3-jar-with-dependencies.jar -t /opt/pamooba/etc/pamooba.conf.xml
+    java -jar /opt/pamooba/bin/PaMooBa-0.1.5-jar-with-dependencies.jar -t /opt/pamooba/etc/pamooba.conf.xml
 
 Edit configuration file to meet your server setup.
 The following table list the options and a short explanation:
@@ -69,12 +69,12 @@ You have two choices: manual or automatic execution via cronjob.
 
 ### manual execution 
 
-    java -jar /opt/pamooba/bin/PaMooBa-0.1.3-jar-with-dependencies.jar -c /opt/pamooba/etc/pamooba.conf.xml
+    java -jar /opt/pamooba/bin/PaMooBa-0.1.5-jar-with-dependencies.jar -c /opt/pamooba/etc/pamooba.conf.xml
 
 ### cronjob execution
     
     # execute pamooba every day at 2 am and save output to /opt/pamooba/log/pamooba.$(date +%Y%m%d).log
-    0 2 0 0 0 /usr/bin/java -jar /opt/pamooba/bin/PaMooBa-0.1.3-jar-with-dependencies.jar -c /opt/pamooba/etc/pamooba.conf.xml &>> /opt/pamooba/log/pamooba.$(date +%Y%m%d).log
+    0 2 0 0 0 /usr/bin/java -jar /opt/pamooba/bin/PaMooBa-0.1.5-jar-with-dependencies.jar -c /opt/pamooba/etc/pamooba.conf.xml &>> /opt/pamooba/log/pamooba.$(date +%Y%m%d).log
 
     
 > Note: You have to create the log directory first, when adding the cronjob.
@@ -96,7 +96,7 @@ Possible command line option values are:
     
 An example call is: 
     
-    java -jar /opt/pamooba/bin/PaMooBa-0.1.3-jar-with-dependencies.jar -c /opt/pamooba/etc/pamooba.conf.xml -D trace
+    java -jar /opt/pamooba/bin/PaMooBa-0.1.5-jar-with-dependencies.jar -c /opt/pamooba/etc/pamooba.conf.xml -D trace
 
 
 # How to build?
